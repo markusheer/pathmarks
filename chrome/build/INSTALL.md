@@ -1,0 +1,9 @@
+# Manually install PathMarks extension into Google Chrome
+
+This Google Chrome is not available on Google App Store (yet).
+
+Use the following instructions to install the extension into your Google Chrome.
+
+* Download the pathmarks.crx file from github
+* Open the Google Chrom Extension page with the URL chrome://chrome/extensions/ 
+* Drag and Drop the downloaded file into the page
