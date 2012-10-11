@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+.urls {
+	width: 250px;
+}
+
+.url {
+	cursor: pointer;
+	font-size: 0.9em;
+	padding: 5px;
+}
+
+.url:hover {
+	background-color: #EFEFEF;
+}
+
+.error {
+	font-size:0.7em;
+}

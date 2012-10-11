@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+
+body {
+	margin-left:auto;
+	margin-right:auto;
+	width: 50%;
+}
+
+h1 {
+	font-size: 1.2em;
+}
+
+h2 {
+	font-size: 1em;
+	margin-bottom: 4px;
+}
+
+p code {
+	color: grey;
+}
+
+.message {
+	font-size: 0.8em;
+	color: grey;
+}
+
+.error {
+	color: red;
+}
+
+.configarea {
+	width: 100%;
+	height: 200px;
+}
+
+.saved {
+	border-color: green;
+}
+
+.invalid {
+	border-color: red;
+}
