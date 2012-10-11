@@ -3,7 +3,7 @@
 HOST_FILES="manifest.json"
 CWD=`pwd`
 #KEY="/PATH/to/chrome_extension.pem"
-KEY=$CWD/../pathmarks.pem
+KEY=$CWD/../../pathmarks.pem
 
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 if [ ! -f "$CHROME" ]; then
