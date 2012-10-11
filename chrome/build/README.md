@@ -1,6 +1,6 @@
 # Manually install PathMarks extension into Google Chrome
 
-This Google Chrome is not available on Google App Store (yet).
+This Google Chrome Extension is not available on Google App Store (yet).
 
 Use the following instructions to install the extension into your Google Chrome.
 
