@@ -28,8 +28,7 @@ PathMarks.loadConfiguration = function() {
 				var url = jQuery("<div />");
 				url.addClass("url");
 				url.attr("data-path", entry.value);
-				url.attr("title", entry.value);
-				url.html(entry.title);
+				url.html(entry.title + "<span class='path'>" + entry.value + "</span>");
 				url.click(function () {
 					PathMarks.changeUrls(jQuery(this).attr("data-path"));
 				});
@@ -41,6 +40,14 @@ PathMarks.loadConfiguration = function() {
 	});
 };
 
+PathMarks.showBaseUrl = function() {
+    chrome.tabs.getSelected(null, function(tab) {
+        var targetForTab = PathMarks.getHostAndPort(tab.url);
+        jQuery(".baseurl").html(targetForTab);
+    });
+}
+
 jQuery().ready(function() {
+    PathMarks.showBaseUrl();
 	PathMarks.loadConfiguration();
 });

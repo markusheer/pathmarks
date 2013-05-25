@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PathMarks configuration</title>
+	<title>PathMarks Configuration</title>
 	<link href="css/base.css" media="all" rel="stylesheet" type="text/css"/>
 	<link href="css/options.css" media="all" rel="stylesheet" type="text/css"/>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	<script src="js/options.js"></script>
 </head>
 <body>
-	<h1>PathMarks configuration</h1>
-	<ul>	
-		<li>Create a JSON configuration to set the paths you want to use for PathMarks.</li>
-		<li>Click the browser action icon <img src="images/icon16.png" /></li>
+
+    <header class="header">PathMarks Configuration</header>
+
+	<h2>Instruction</h2>
+    <ul class="description">
+		<li>Create the configuration via JSON to set the paths you want to use for PathMarks.</li>
+		<li>Click the browser action icon <img class="icon" src="images/icon128.png" /></li>
 		<li>Choose the path you would like to open. The url of your current tab will be used to create the new path url.</li>
 	</ul>
-	<h2>JSON Example</h2>
-	<p>
-	<code>
-		[{"title": "CMS Admin", "value": "/admin"},<br />
-			{"title": "CMS Author", "value": "/author"}]
-	</code>
-	</p>
+
+    <hr class="separator" />
+
+    <h2>Configuration</h2>
+    <input type="text" class="text title" name="title" placeholder="Title" required="required" />
+    <input type="text" class="text value" name="value" placeholder="Path (ex. /admin)" required="required" />
+    <button class="add" type="button">Add</button>
 	<textarea name="jsonConfig" id="jsonConfig" class="configarea"
 		placeholder='eg: [{ "title": "Admin URL", "value": "/admin" }, { "title": "Author URL", "value": "/author" }]'></textarea>
-	<div class="message">Use textarea to edit the configuration.</div>
+	<div class="message">Use the textarea above to edit the configuration directly.</div>
 
+    <h2>Configuration Example</h2>
+    <p>
+        <code>
+            [{"title": "Wordpress Admin", "value": "/wp-admin"},<br />
+            {"title": "TYPO3", "value": "/typo3"},<br />
+            {"title": "Drupal", "value": "/user"}]
+        </code>
+    </p>
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="js/options.js"></script>
 </body>
 </html>
