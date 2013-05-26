@@ -8,8 +8,8 @@ Opens a new tab with the URL you actually opened in your Chrome Tab/Window addin
 
 ## Usage
 
-Install the extensions CRX file.
+Install the extensions via https://chrome.google.com/webstore/detail/pathmarks/ggpmfmmfnijpmkjebjdmdhacjdlkkjfb
 
 ## Development
 
-Fork it, change it, use it ;-).
+Fork it, change it, use it!
