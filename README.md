@@ -1,9 +1,15 @@
-# PathMarks - Browser Extension
+# PathMarks - Chrome Extension
 
 Open often used paths faster.
 
-## Google Chrome
+## Description
 
-Source: https://github.com/markusheer/pathmarks/tree/master/chrome/
+Opens a new tab with the URL you actually opened in your Chrome Tab/Window adding a specific path.
 
-Latest Build: https://github.com/markusheer/pathmarks/tree/master/chrome/build
+## Usage
+
+Install the extensions CRX file.
+
+## Development
+
+Fork it, change it, use it ;-).

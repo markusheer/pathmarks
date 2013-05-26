@@ -5,14 +5,14 @@
   "description": "__MSG_description__",
   "default_locale": "en",
   "permissions": ["tabs", "storage"],	
-  "options_page": "options.html",
+  "options_page": "html/options.html",
   "browser_action" : {
     "default_icon": {
         "19": "images/icon19.png",
         "38": "images/icon38.png"
     },
     "default_title": "PathMarks",
-    "default_popup": "popup.html"
+    "default_popup": "html/popup.html"
   },
   "icons": {
     "16": "images/icon16.png",
