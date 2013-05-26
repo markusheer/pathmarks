@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PathMarks Configuration</title>
-	<link href="css/base.css" media="all" rel="stylesheet" type="text/css"/>
-	<link href="css/options.css" media="all" rel="stylesheet" type="text/css"/>
+	<title>Pathmarks Configuration</title>
+	<link href="/css/base.css" media="all" rel="stylesheet" type="text/css"/>
+	<link href="/css/options.css" media="all" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
-    <header class="header">PathMarks Configuration</header>
+    <header class="header">
+        <div class="headerTitle">Pathmarks Configuration</div>
+        <div class="headerVersion"></div>
+        <div class="clear"></div>
+    </header>
 
 	<h2>Instruction</h2>
     <ul class="description">
-		<li>Create the configuration via JSON to set the paths you want to use for PathMarks.</li>
-		<li>Click the browser action icon <img class="icon" src="images/icon128.png" /></li>
+		<li>Add new entries below or edit the configuration directly to set the paths you want to use for Pathmarks.</li>
+		<li>Click the browser action icon <img class="icon" src="/images/icon128.png" /></li>
 		<li>Choose the path you would like to open. The url of your current tab will be used to create the new path url.</li>
 	</ul>
 
@@ -20,7 +24,7 @@
 
     <h2>Configuration</h2>
     <input type="text" class="text title" name="title" placeholder="Title" required="required" />
-    <input type="text" class="text value" name="value" placeholder="Path (ex. /admin)" required="required" />
+    <input type="text" class="text value" name="value" placeholder="Path or URL part (eg. /admin)" required="required" />
     <button class="add" type="button">Add</button>
 	<textarea name="jsonConfig" id="jsonConfig" class="configarea"
 		placeholder='eg: [{ "title": "Admin URL", "value": "/admin" }, { "title": "Author URL", "value": "/author" }]'></textarea>
@@ -34,7 +38,10 @@
             {"title": "Drupal", "value": "/user"}]
         </code>
     </p>
-    <script src="js/libs/jquery.min.js"></script>
-    <script src="js/options.js"></script>
+    <script src="/js/libs/jquery.min.js"></script>
+    <script src="/js/libs/class.js"></script>
+    <script src="/js/core.js"></script>
+    <script src="/js/updater.js"></script>
+    <script src="/js/options.js"></script>
 </body>
 </html>

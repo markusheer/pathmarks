@@ -1,95 +1,123 @@
 /**
- * PathMarks - Google Chrome Extension
+ * Handling of options/configuration.
  */
-var PathMarks = PathMarks || {};
+Pathmarks.Options = Class.extend({
 
-PathMarks.storage = chrome.storage.local;
+    init: function() {
+        this.core = new Pathmarks.Core();
+    },
 
-PathMarks.setMessage = function(msg) {
-	var messageContainer = jQuery(".message");
-	messageContainer.removeClass("error");
-	messageContainer.html(msg);
-};
+    start: function() {
+        var self = this;
+        jQuery(".configarea").on("keyup", function() {
+            self.saveConfiguration();
+        });
+        jQuery(".add").on("click", function() {
+            self.addEntryFromInputFields();
+        });
+        jQuery(".text").on("keyup", function(event) {
+            self.addEntriesOnEnter(event, self);
+        });
+        jQuery(".headerVersion").html(chrome.runtime.getManifest().version);
+        this.loadConfiguration();
+    },
 
-PathMarks.setErrorMessage = function(errorMsg) {
-	var messageContainer = jQuery(".message");
-	messageContainer.addClass("error");
-	messageContainer.html(errorMsg);
-};
+    setMessage: function(msg) {
+        var messageContainer = jQuery(".message");
+        messageContainer.removeClass("error");
+        messageContainer.html(msg);
+    },
 
-PathMarks.saveConfiguration = function() {
-	var jsonConfig = jQuery("#jsonConfig").val();
-	if (!jsonConfig) {
-		PathMarks.resetConfiguration();
-		return;
-	}
-	try {
-		JSON.parse(jsonConfig);
-	} catch (e) {
-		jQuery(".configarea").addClass("invalid");
-		PathMarks.setErrorMessage("Error: Can not save illegal JSON configuration " + e);
-		return;
-	}
-	PathMarks.storage.set({"jsonConfig": jsonConfig}, function() {
-		jQuery(".configarea").removeClass("invalid");
-		jQuery(".configarea").addClass("saved");
-		PathMarks.setMessage("Configuration saved");
-	});
-};
+    setErrorMessage: function(errorMsg) {
+        var messageContainer = jQuery(".message");
+        messageContainer.addClass("error");
+        messageContainer.html(errorMsg);
+    },
 
-PathMarks.resetConfiguration = function() {
-	jQuery("#jsonConfig").val("");
-	PathMarks.storage.set({"jsonConfig": ""}, function() {
-		PathMarks.setMessage("Configuration cleared.");
-	});
-};
-
-PathMarks.loadConfiguration = function() {
-	PathMarks.storage.get("jsonConfig", function(items) {
-		if (items.jsonConfig) {
-			jQuery("#jsonConfig").val(items.jsonConfig);
-		}
-	});
-};
-
-PathMarks.addEntryFromInputFields = function() {
-    var titleField = jQuery("input[name=title]");
-    var valueField = jQuery("input[name=value]");
-    var title = titleField.val();
-    var value = valueField.val();
-    if (!title) {
-        titleField.addClass("invalid");
-    } else {
-        titleField.removeClass("invalid");
-    }
-    if (!value) {
-        valueField.addClass("invalid");
-    } else {
-        valueField.removeClass("invalid");
-    }
-    if (!title || !value) {
-        return;
-    }
-    PathMarks.storage.get("jsonConfig", function(items) {
-        var configValues = [];
-        if (items.jsonConfig) {
-            configValues = JSON.parse(items.jsonConfig);
+    saveConfiguration: function() {
+        var jsonConfig = jQuery("#jsonConfig").val();
+        if (!jsonConfig) {
+            this.resetConfiguration();
+            return;
         }
-        var newEntry = {"title": title, "value": value };
-        configValues.push(newEntry);
-        jQuery(".configarea").val(JSON.stringify(configValues, null, 0));
-        PathMarks.saveConfiguration();
-        titleField.val("");
-        valueField.val("");
-    });
-};
+        try {
+            JSON.parse(jsonConfig);
+        } catch (e) {
+            jQuery(".configarea").addClass("invalid");
+            this.setErrorMessage("Error: Can not save illegal JSON configuration " + e);
+            return;
+        }
+        var self = this;
+        this.core.useSetStorage(jsonConfig, function() {
+            jQuery(".configarea").removeClass("invalid");
+            jQuery(".configarea").addClass("saved");
+            self.setMessage("Configuration saved");
+        });
+    },
+
+    resetConfiguration: function() {
+        jQuery("#jsonConfig").val("");
+        var self = this;
+        this.core.useSetStorage("", function() {
+            self.setMessage("Configuration cleared.");
+        });
+    },
+
+    loadConfiguration: function() {
+        this.core.useGetStorage(function(items) {
+            if (items) {
+                jQuery("#jsonConfig").val(items);
+            }
+        });
+    },
+
+    addEntryFromInputFields: function() {
+        var titleField = jQuery("input[name=title]");
+        var valueField = jQuery("input[name=value]");
+        var title = titleField.val();
+        var value = valueField.val();
+        if (!title) {
+            titleField.addClass("invalid");
+        } else {
+            titleField.removeClass("invalid");
+        }
+        if (!value) {
+            valueField.addClass("invalid");
+        } else {
+            valueField.removeClass("invalid");
+        }
+        if (!title || !value) {
+            return;
+        }
+        var self = this;
+        this.core.useGetStorage(function(items) {
+            var configValues = [];
+            if (items) {
+                configValues = JSON.parse(items);
+            }
+            var newEntry = {"title": title, "value": value };
+            configValues.push(newEntry);
+            jQuery(".configarea").val(self.serializeConfigValues(configValues));
+            self.saveConfiguration();
+            titleField.val("");
+            valueField.val("");
+        });
+    },
+
+    serializeConfigValues: function(configValues) {
+        var serialized = JSON.stringify(configValues);
+        return serialized.replace(/},/g, "},\n");
+    },
+
+    addEntriesOnEnter: function(event, self) {
+        if (event.which == 13) {
+            self.addEntryFromInputFields();
+        }
+    }
+
+});
 
 jQuery().ready(function() {
-	jQuery(".configarea").on("keyup", function() {
-		PathMarks.saveConfiguration();
-	});
-    jQuery(".add").on("click", function() {
-        PathMarks.addEntryFromInputFields();
-    });
-	PathMarks.loadConfiguration();
+	var options = new Pathmarks.Options();
+    options.start();
 });

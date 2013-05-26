@@ -1,4 +1,4 @@
-# PathMarks - Chrome Extension
+# Pathmarks - Chrome Extension
 
 Open often used paths faster.
 

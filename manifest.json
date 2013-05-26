@@ -1,5 +1,5 @@
 {
-  "name": "PathMarks",
+  "name": "Pathmarks",
   "version": "0.2.0",
   "manifest_version": 2,
   "description": "__MSG_description__",
@@ -11,7 +11,7 @@
         "19": "images/icon19.png",
         "38": "images/icon38.png"
     },
-    "default_title": "PathMarks",
+    "default_title": "Pathmarks",
     "default_popup": "html/popup.html"
   },
   "icons": {
