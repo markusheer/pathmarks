@@ -1,0 +1,14 @@
+{
+  "name": "pathmarks",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/markusheer/pathmarks.git"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "marked": "~0.2.8",
+    "grunt-zip": "~0.7.0",
+    "semver": "~1.1.4",
+    "grunt-contrib-clean": "~0.4.1"
+  }
+}
