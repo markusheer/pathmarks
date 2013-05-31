@@ -3,15 +3,16 @@
 body {
     margin: 0;
     padding: 0;
+    min-width: 250px;
 }
 
 .urls {
-	width: 250px;
+
 }
 
 .baseurl {
-    font-size: 0.7em;
-    line-height: 0.8em;
+    font-size: 0.9em;
+    line-height: 1.1em;
     padding: 5px;
     color: rgb(211, 211, 211);
     border-bottom: 1px solid rgb(232, 232, 232);
@@ -20,7 +21,6 @@ body {
 
 .url {
 	cursor: pointer;
-	font-size: 0.9em;
 	padding: 5px;
 }
 
@@ -30,10 +30,10 @@ body {
 
 .path {
     padding-left: 5px;
-    font-size: 0.5em;
+    font-size: 0.9em;
     color: rgb(211, 211, 211);
 }
 
 .error {
-	font-size:0.7em;
+	font-size:0.8em;
 }

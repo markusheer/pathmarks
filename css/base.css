@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 
 body,html {
-    font-family: 'Lucida Grande', sans-serif;
-    font-size: 0.9em;
+    font-family: 'Lucida Grande', 'Segoe UI', Tahoma, sans-serif;
+    font-size: 1em;
 }
