@@ -24,7 +24,7 @@ body {
 	padding: 5px;
 }
 
-.url:hover {
+.url:hover, .selected {
 	background-color: #EFEFEF;
 }
 
