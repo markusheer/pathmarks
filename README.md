@@ -1,15 +1,12 @@
-# Pathmarks - Chrome Extension
+# Pathmarks
+## Chrome Extension
 
-Open often used paths faster.
+Bookmark often used path and open them with the URL from the current tab.
 
-## Description
+## Installation
 
-Opens a new tab with the URL you actually opened in your Chrome Tab/Window adding a specific path.
-
-## Usage
-
-Install the extensions via https://chrome.google.com/webstore/detail/pathmarks/ggpmfmmfnijpmkjebjdmdhacjdlkkjfb
+Install the extension from the Chrome Webstore under https://chrome.google.com/webstore/detail/pathmarks/ggpmfmmfnijpmkjebjdmdhacjdlkkjfb
 
 ## Development
 
-Fork it, change it, use it!
+Fork it, change it, deploy it ;-)
