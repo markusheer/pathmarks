@@ -28,7 +28,17 @@ Pathmarks.PopUp = Class.extend({
         var self = this;
         chrome.tabs.getSelected(null, function(tab) {
             var targetForTab = self.getHostAndPort(tab.url) + urlTarget;
-            chrome.tabs.create({url: targetForTab});
+            self.openOrSelectTab(targetForTab);
+        });
+    },
+
+    openOrSelectTab: function(tabUrl) {
+        chrome.tabs.query({url: tabUrl}, function(tabs) {
+            if (tabs.length) {
+                chrome.tabs.update(tabs[0].id, {active: true});
+            } else {
+                chrome.tabs.create({url: tabUrl});
+            }
         });
     },
 
@@ -38,8 +48,7 @@ Pathmarks.PopUp = Class.extend({
             if (items) {
                 var configs = JSON.parse(items);
                 var urls = jQuery(".urls");
-                for (var entryIdx in configs) {
-                    var entry = configs[entryIdx];
+                jQuery.each(configs, function(entryIdx, entry) {
                     var url = jQuery("<div />");
                     url.addClass("url");
                     url.attr("data-path", entry.value);
@@ -48,9 +57,12 @@ Pathmarks.PopUp = Class.extend({
                         self.changeUrls(jQuery(this).attr("data-path"));
                     });
                     urls.append(url);
-                }
+                });
             } else {
-                jQuery(".urls").html("<div class=\"error\">No paths configured, use options of this extension to configure paths.</div>");
+                jQuery(".urls").html("<div class=\"error\">No paths configured, use the <span class=\"options\">Options</span> of this extension to configure paths.</div>");
+                jQuery(".options").on("click", function() {
+                    self.openOptionsPage();
+                });
             }
         });
     },
@@ -100,9 +112,13 @@ Pathmarks.PopUp = Class.extend({
                     return;
                 }
                 previousUrl.addClass("selected");
-                return;
             }
         });
+    },
+
+    openOptionsPage: function() {
+        var optionsUrl = chrome.extension.getURL('/html/options.html');
+        this.openOrSelectTab(optionsUrl);
     }
 
 

@@ -35,5 +35,12 @@ body {
 }
 
 .error {
+    padding: 5px;
 	font-size:0.8em;
+}
+
+.options {
+    font-family: RobotoRegular, sans-serif;
+    color: rgb(17, 34, 204);
+    cursor: pointer;
 }
