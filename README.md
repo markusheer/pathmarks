@@ -1,7 +1,7 @@
 # Pathmarks
 ## Chrome Extension
 
-Bookmark often used path and open them with the URL from the current tab.
+Bookmark often used paths and open them with the URL from the current tab.
 
 ## Installation
 
