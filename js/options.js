@@ -5,6 +5,7 @@ Pathmarks.Options = Class.extend({
 
     init: function() {
         this.core = new Pathmarks.Core();
+        this.UI = new Pathmarks.UI();
     },
 
     start: function() {
@@ -18,7 +19,7 @@ Pathmarks.Options = Class.extend({
         jQuery(".text").on("keyup", function(event) {
             self.addEntriesOnEnter(event, self);
         });
-        jQuery(".headerVersion").html(chrome.runtime.getManifest().version);
+        jQuery(".header-version").html(chrome.runtime.getManifest().version);
         this.loadConfiguration();
     },
 
@@ -97,16 +98,11 @@ Pathmarks.Options = Class.extend({
             }
             var newEntry = {"title": title, "value": value };
             configValues.push(newEntry);
-            jQuery(".configarea").val(self.serializeConfigValues(configValues));
+            jQuery(".configarea").val(self.core.serializeConfigValues(configValues));
             self.saveConfiguration();
             titleField.val("");
             valueField.val("");
         });
-    },
-
-    serializeConfigValues: function(configValues) {
-        var serialized = JSON.stringify(configValues);
-        return serialized.replace(/},/g, "},\n");
     },
 
     addEntriesOnEnter: function(event, self) {
