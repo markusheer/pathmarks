@@ -23,6 +23,11 @@ Pathmarks.Core = Class.extend({
         this.storage.set(storeObject, function() {
             return callback();
         });
+    },
+
+    serializeConfigValues: function(configValues) {
+        var serialized = JSON.stringify(configValues);
+        return serialized.replace(/},/g, "},\n");
     }
 
 });

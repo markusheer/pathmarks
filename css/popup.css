@@ -3,29 +3,117 @@
 body {
     margin: 0;
     padding: 0;
-    min-width: 250px;
+    min-width: 400px;
+    max-width: 600px;
 }
 
 .urls {
-
+    clear: both;
 }
 
-.baseurl {
+.header {
     font-size: 0.9em;
     line-height: 1.1em;
+    overflow: auto;
     padding: 5px;
-    color: rgb(211, 211, 211);
     border-bottom: 1px solid rgb(232, 232, 232);
 }
 
+.baseurl {
+    color: rgb(211, 211, 211);
+    float: left;
+}
+
+.add-path, .option-page {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    float: right;
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    border: 1px solid #FFFFFF;
+}
+
+.add-path:hover, .option-page:hover {
+    border: 1px solid rgb(232, 232, 232);
+}
+
+.add-path {
+    background-image: url("/images/icon-add128.png");
+}
+
+.option-page {
+    margin-left: 3px;
+    background-image: url("/images/icon-option128.png");
+}
+
+.add-form {
+    border-bottom: 1px solid rgb(232, 232, 232);
+    padding: 10px;
+    display: none;
+}
 
 .url {
 	cursor: pointer;
 	padding: 5px;
+    overflow: auto;
 }
 
 .url:hover, .selected {
 	background-color: #EFEFEF;
+}
+
+.remove-icon {
+    width: 16px;
+    height: 16px;
+    background-image: url("/images/icon-remove128.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+}
+
+.remove-icon:hover {
+    background-image: url("/images/icon-remove128-hover.png");
+}
+
+.remove-entry {
+    float: right;
+    overflow: auto;
+    color: rgb(211, 211, 211);
+    font-family: RobotoRegular, sans-serif;
+    font-size: 0.8em;
+    padding: 3px;
+}
+
+.remove-entry:hover {
+    color: #ff9800;
+    background-color: #8b0033;
+}
+
+.remove-entry:hover .remove-yes {
+}
+
+.remove-entry:hover .remove-no {
+    color: #FFFFFF;
+}
+
+.remove-yes {
+    float: left;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.remove-yes:hover {
+    font-family: RobotoBlack, sans-serif;
+}
+
+.remove-no {
+    float: right;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.remove-no:hover {
+    font-family: RobotoBlack, sans-serif;
 }
 
 .path {

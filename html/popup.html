@@ -7,11 +7,21 @@
 	<link href="/css/popup.css" media="all" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-    <div class="baseurl"></div>
+    <div class="header">
+        <div class="baseurl"></div>
+        <div class="option-page"></div>
+        <div class="add-path"></div>
+    </div>
+    <div class="add-form">
+        <input type="text" class="text title" name="title" placeholder="Title" required="required" />
+        <input type="text" class="text value" name="value" placeholder="Path or URL part (eg. /admin)" required="required" />
+        <button class="add" type="button">Add</button>
+    </div>
 	<div class="urls"></div>
-    <script src="/js/libs/jquery.min.js"></script>
+    <script src="/js/libs/jquery-2.0.3.min.js"></script>
     <script src="/js/libs/class.js"></script>
     <script src="/js/core.js"></script>
+    <script src="/js/ui.js"></script>
     <script src="/js/updater.js"></script>
     <script src="/js/popup.js"></script>
 </body>
