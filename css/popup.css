@@ -25,13 +25,14 @@ body {
 }
 
 .add-path, .option-page {
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
     cursor: pointer;
     float: right;
     background-repeat: no-repeat;
-    background-size: 24px 24px;
-    border: 1px solid #FFFFFF;
+    background-size: 100% 100%;
+    border: 1px solid transparent;
+    border-radius: 2px;
 }
 
 .add-path:hover, .option-page:hover {
@@ -69,37 +70,37 @@ body {
     background-image: url("/images/icon-remove128.png");
     background-repeat: no-repeat;
     background-size: 16px 16px;
+    border: 1px solid transparent;
+    border-radius: 2px;
 }
 
 .remove-icon:hover {
-    background-image: url("/images/icon-remove128-hover.png");
+    border: 1px solid rgb(255, 255, 255);
 }
 
 .remove-entry {
     float: right;
     overflow: auto;
+    height: 20px;
     color: rgb(211, 211, 211);
     font-family: RobotoRegular, sans-serif;
     font-size: 0.8em;
-    padding: 3px;
 }
 
 .remove-entry:hover {
-    color: #ff9800;
-    background-color: #8b0033;
 }
 
 .remove-entry:hover .remove-yes {
+    color: rgb(0, 0, 0);
 }
 
 .remove-entry:hover .remove-no {
-    color: #FFFFFF;
+    color: rgb(0, 0, 0);
 }
 
 .remove-yes {
     float: left;
-    padding-left: 3px;
-    padding-right: 3px;
+    padding: 3px;
 }
 
 .remove-yes:hover {
@@ -108,8 +109,7 @@ body {
 
 .remove-no {
     float: right;
-    padding-left: 3px;
-    padding-right: 3px;
+    padding: 3px;
 }
 
 .remove-no:hover {

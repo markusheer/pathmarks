@@ -169,6 +169,7 @@ Pathmarks.PopUp = Class.extend({
             var tabTitle = tab.title;
             var pathQueryAndFragment = self.getPathQueryAndFragmentFromUrl(tab.url);
             if (pathQueryAndFragment == "/") {
+                jQuery(".add-path").hide();
                 return;
             }
             jQuery(".add-path").attr("title", pathQueryAndFragment);
