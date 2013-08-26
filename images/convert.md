@@ -7,3 +7,7 @@ Use the following shell command with graphicsmagick to create a new icon set:
 Use the following shell command to colorize an icon:
 
 `gm convert iconmonstr-note-27-icon.png -fill red -colorize 40/40/10 icon-dev.png`
+
+Use the following shell command to colorize the grey icon:
+
+`gm convert icon-option128.png -fill "#C6C6C6" -colorize 100/100/100 icon-option128grey.png`

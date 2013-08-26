@@ -40,12 +40,12 @@ body {
 }
 
 .add-path {
-    background-image: url("/images/icon-add128.png");
+    background-image: url("/images/icon-add128grey.png");
 }
 
 .option-page {
     margin-left: 3px;
-    background-image: url("/images/icon-option128.png");
+    background-image: url("/images/icon-option128grey.png");
 }
 
 .add-form {
@@ -67,7 +67,7 @@ body {
 .remove-icon {
     width: 16px;
     height: 16px;
-    background-image: url("/images/icon-remove128.png");
+    background-image: url("/images/icon-remove128grey.png");
     background-repeat: no-repeat;
     background-size: 16px 16px;
     border: 1px solid transparent;
