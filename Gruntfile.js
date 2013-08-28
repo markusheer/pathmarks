@@ -19,7 +19,7 @@ module.exports = function(grunt) {
                 src: [
                     '_locales/**',
                     'css/**',
-                    'img/**',
+                    'images/**',
                     'js/**',
                     'html/**',
                     'images/**',
