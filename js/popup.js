@@ -62,6 +62,9 @@ Pathmarks.PopUp = Class.extend({
         this.core.useGetStorage(function(items) {
             if (items) {
                 var configs = JSON.parse(items);
+                if (configs.length < 1) {
+                    return self.showNoPathsMessage();
+                }
                 var urls = jQuery(".urls");
                 urls.empty();
                 jQuery.each(configs, function(entryIdx, entry) {
@@ -76,17 +79,23 @@ Pathmarks.PopUp = Class.extend({
                     urls.append(url);
                 });
             } else {
-                jQuery(".urls").html("<div class=\"error\">No paths configured, use the <span class=\"options\">Options</span> of this extension to configure paths.</div>");
-                jQuery(".options").on("click", function() {
-                    self.openOptionsPage();
-                });
+                self.showNoPathsMessage();
             }
+        });
+    },
+
+    showNoPathsMessage: function() {
+        var self = this;
+        jQuery(".urls").html("<div class=\"no-paths-message\"><div>Welcome to pathmarks.</div><div>No paths are configured, use the <span class=\"options\">Options</span> page of this extension to configure paths or add paths with the path icon.</div></div>");
+        jQuery(".options").on("click", function() {
+            self.openOptionsPage();
         });
     },
 
     createRemoveButton: function(self) {
         var removeButton = jQuery("<div />");
         removeButton.addClass("remove-entry");
+        removeButton.attr("title", "Remove this entry");
         var removeIcon = jQuery("<div />");
         removeIcon.addClass("remove-icon");
         removeButton.append(removeIcon);
