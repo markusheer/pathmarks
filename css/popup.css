@@ -3,8 +3,18 @@
 body {
     margin: 0;
     padding: 0;
-    min-width: 400px;
-    max-width: 600px;
+}
+
+@media only screen and (max-device-width: 1024px) {
+    body {
+        min-width: 400px;
+    }
+}
+
+@media screen and (min-device-width: 1025px) {
+    body {
+        min-width: 500px;
+    }
 }
 
 .urls {
@@ -130,6 +140,11 @@ body {
 .error {
     padding: 5px;
 	font-size:0.8em;
+}
+
+.no-paths-message {
+    padding: 5px;
+    font-size: 0.8em;
 }
 
 .options {
