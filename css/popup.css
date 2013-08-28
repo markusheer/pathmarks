@@ -35,17 +35,21 @@ body {
     border-radius: 2px;
 }
 
-.add-path:hover, .option-page:hover {
-    border: 1px solid rgb(232, 232, 232);
+.add-path {
+    background-image: url("/images/icon-add128.png");
 }
 
-.add-path {
-    background-image: url("/images/icon-add128grey.png");
+.add-path:hover {
+    background-image: url("/images/icon-add128hover.png");
 }
 
 .option-page {
     margin-left: 3px;
-    background-image: url("/images/icon-option128grey.png");
+    background-image: url("/images/icon-option128.png");
+}
+
+.option-page:hover {
+    background-image: url("/images/icon-option128hover.png");
 }
 
 .add-form {
@@ -67,15 +71,16 @@ body {
 .remove-icon {
     width: 16px;
     height: 16px;
-    background-image: url("/images/icon-remove128grey.png");
+    background-image: url("/images/icon-remove128.png");
     background-repeat: no-repeat;
-    background-size: 16px 16px;
+    background-size: 10px 10px;
+    background-position: 3px 3px;
     border: 1px solid transparent;
     border-radius: 2px;
 }
 
 .remove-icon:hover {
-    border: 1px solid rgb(255, 255, 255);
+    background-image: url("/images/icon-remove128hover.png");
 }
 
 .remove-entry {
