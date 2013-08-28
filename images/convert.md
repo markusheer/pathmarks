@@ -10,4 +10,4 @@ Use the following shell command to colorize an icon:
 
 Use the following shell command to colorize the grey icon:
 
-`gm convert icon-option128.png -fill "#C6C6C6" -colorize 100/100/100 icon-option128grey.png`
+`gm convert icon-remove128.png -fill "#C6C6C6" -colorize 100/100/100 icon-remove128grey.png`
