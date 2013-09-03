@@ -150,7 +150,7 @@ Pathmarks.PopUp = Class.extend({
     },
 
     executeFunctionOnActiveTab: function(callback) {
-        chrome.tabs.query({active: true}, function(tabs) {
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             jQuery.each(tabs, function(idx, tab) {
                 return callback(tab);
             });
