@@ -17,6 +17,7 @@ Pathmarks.PopUp = Class.extend({
         this.showOpenOptionPage();
         this.loadConfiguration();
         this.loadKeyNavigation();
+        this.loadSortable();
     },
 
     createVirtualLink: function(url) {
@@ -301,7 +302,54 @@ Pathmarks.PopUp = Class.extend({
     },
 
     getOptionsUrl: function() {
-        return chrome.extension.getURL('/html/options.html');
+        return chrome.extension.getURL("/html/options.html");
+    },
+
+    loadSortable: function() {
+        var self = this;
+        jQuery(".urls").sortable({
+            items: ".url",
+            stop: function(event, ui) {
+                self.resortPathmarks();
+            }
+        });
+    },
+
+    resortPathmarks: function() {
+        var viewWithPaths = this.createPathmarksFromHtml();
+        var self = this;
+        this.core.useGetStorage(function(items) {
+            var configValues = [];
+            if (items) {
+                configValues = JSON.parse(items);
+            }
+            if (configValues.length != viewWithPaths.length) {
+                console.error("Unexpected behaviour, re-sort aborted");
+                return;
+            }
+            var sortedConfigValues = [];
+            jQuery.each(viewWithPaths, function(sortIndex, path) {
+                jQuery.each(configValues, function(actualIndex, savedPathmark) {
+                    if (savedPathmark.value == path) {
+                        sortedConfigValues[sortIndex] = savedPathmark;
+                    }
+                });
+            });
+            var jsonConfig = self.core.serializeConfigValues(sortedConfigValues);
+            self.core.useSetStorage(jsonConfig, function() {
+                self.start();
+                self.refreshOptionsPage();
+            });
+        });
+    },
+
+    createPathmarksFromHtml: function() {
+        var urls = jQuery(".url");
+        var result = [];
+        jQuery.each(urls, function(idx, elem) {
+            result.push(jQuery(elem).data("path"));
+        });
+        return result;
     }
 
 });
