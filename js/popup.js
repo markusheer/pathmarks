@@ -197,6 +197,13 @@ Pathmarks.PopUp = Class.extend({
         jQuery(".add").on("click", function() {
             self.addEntryFromInputFields();
         });
+        jQuery(".add-input-text").on("keyup", function(event) {
+            if (event.which == self.KEY_ENTER) {
+                console.log("enter clicked");
+                jQuery(".add").trigger("click");
+                return;
+            }
+        });
         jQuery(".add-form").show("fast");
     },
 
@@ -234,7 +241,7 @@ Pathmarks.PopUp = Class.extend({
                 return;
             }
             if (event.which == self.KEY_ENTER) {
-                jQuery(".selected").click();
+                jQuery(".selected").trigger("click");
                 return;
             }
             var selectedUrl = null;
