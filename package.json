@@ -5,10 +5,10 @@
     "url": "https://github.com/markusheer/pathmarks.git"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "marked": "~0.2.9",
-    "grunt-zip": "~0.9.2",
-    "semver": "~2.1.0",
-    "grunt-contrib-clean": "~0.5.0"
+    "grunt": "~0.4.5",
+    "marked": "~0.3.2",
+    "grunt-zip": "~0.16.2",
+    "semver": "~4.1.1",
+    "grunt-contrib-clean": "~0.6.0"
   }
 }
