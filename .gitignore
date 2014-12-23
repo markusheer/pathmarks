@@ -2,5 +2,7 @@
 *.iml
 target
 node_modules
+bower_components
 stubs
 *.log
+lib

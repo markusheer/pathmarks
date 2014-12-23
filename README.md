@@ -16,4 +16,4 @@ Install the extension from the Chrome Webstore https://chrome.google.com/webstor
 
 ## Development
 
-Fork it, change it, deploy it ;-).
+The development setup for this extension is based on grunt and bower. Please setup node, grunt and bower and use 'grunt bower' to get all the external libraries ready.

@@ -1,5 +1,9 @@
 /**
- * Gruntfile to create the build (zip) of the chrome extension.
+ * Build script to init project and create the distribution zip.
+ *
+ * Use 'grunt bower' to get the extension ready to use/develop.
+ *
+ * Use 'grunt' to create the distribution zip.
  */
 
 var markdown = require('marked');
@@ -14,6 +18,13 @@ module.exports = function(grunt) {
                 file: 'manifest.json'
             }
         },
+        bower: {
+            install: {
+                options: {
+                    verbose: true
+                }
+            }
+        },
         zip: {
             release: {
                 src: [
@@ -21,6 +32,7 @@ module.exports = function(grunt) {
                     'css/**',
                     'images/**',
                     'js/**',
+                    'lib/**',
                     'html/**',
                     'images/**',
                     'LICENCE',
@@ -29,7 +41,7 @@ module.exports = function(grunt) {
                 dest: 'target/pathmarks-' + grunt.file.readJSON('manifest.json').version + '.zip'
             }
         },
-        clean: ["target"]
+        clean: ["target", "lib"]
     });
 
     grunt.registerTask('changeToProdIcon', 'Change the icon in the manifest file', function() {
@@ -54,6 +66,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-zip');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-bower-task');
 
-    grunt.registerTask('default', ['changeToProdIcon', 'zip', 'changeToDevIcon']);
+    grunt.registerTask('default', ['bower', 'changeToProdIcon', 'zip', 'changeToDevIcon']);
 };
