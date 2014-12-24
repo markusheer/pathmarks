@@ -21,6 +21,7 @@ Pathmarks.Options = Class.extend({
         });
         jQuery(".header-version").html(chrome.runtime.getManifest().version);
         this.loadConfiguration();
+        this.createChromeExtensionsLink();
     },
 
     setMessage: function(msg) {
@@ -109,6 +110,12 @@ Pathmarks.Options = Class.extend({
         if (event.which == 13) {
             self.addEntryFromInputFields();
         }
+    },
+
+    createChromeExtensionsLink: function() {
+        jQuery(".js-open-extensions-settings").on("click", function() {
+            chrome.tabs.create({url: "chrome://extensions"});
+        });
     }
 
 });

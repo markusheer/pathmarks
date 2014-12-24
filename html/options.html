@@ -3,42 +3,63 @@
 <head>
 	<title>Pathmarks Configuration</title>
     <link href="/css/fonts/roboto.css" rel="stylesheet" type="text/css"/>
-	<link href="/css/base.css" rel="stylesheet" type="text/css"/>
 	<link href="/css/options.css" rel="stylesheet" type="text/css"/>
+	<link href="/css/base.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
-    <header class="header">
-        <div class="header-title">Pathmarks Configuration</div>
-        <div class="header-version"></div>
-        <div class="clear"></div>
-    </header>
+    <section class="navigation">
+        <header class="navigation-header">Pathmarks</header>
+        <nav>
+            <span class="navigation-entry selected">Settings</span>
+        </nav>
+    </section>
 
-	<h2>Instruction</h2>
-    <ul class="description">
-		<li>Add new entries below or edit the configuration directly to set the paths you want to use for Pathmarks.</li>
-		<li>Click the browser action icon <img class="icon" src="/images/icon128.png" /></li>
-		<li>Choose the path you would like to open. The url of your current tab will be used to create the new path url.</li>
-	</ul>
+    <section class="main">
 
-    <hr class="separator" />
+        <header class="header">
+            <div class="header-title">Settings</div>
+            <div class="header-version"></div>
+            <div class="clear"></div>
+        </header>
 
-    <h2>Configuration</h2>
-    <input type="text" class="text title" name="title" placeholder="Title" required="required" />
-    <input type="text" class="text value" name="value" placeholder="Path or URL part (eg. /admin)" required="required" />
-    <button class="add" type="button">Add</button>
-	<textarea name="jsonConfig" id="jsonConfig" class="configarea"
-		placeholder='eg: [{ "title": "Admin URL", "value": "/admin" }, { "title": "Author URL", "value": "/author" }]'></textarea>
-	<div class="message">Use the textarea above to edit the configuration directly.</div>
+        <h2>Instruction</h2>
+        <ul class="description">
+            <li>Add new entries below or edit the configuration directly to set the paths you want to use for Pathmarks.</li>
+            <li>Click the browser action icon <img class="icon" src="/images/icon128.png" /></li>
+            <li>Choose the path you would like to open. The url of your current tab will be used to create the new path url.</li>
+            <li>You can add, remove and reorder the entires in the popup.</li>
+            <li>
+                You can configure a hotkey in the <a href="#" class="js-open-extensions-settings">Extensions settings</a> to use Pathmarks with your keyboard.
+                <ul>
+                    <li>Navigate with up/down keys</li>
+                    <li>Open an entry using enter.</li>
+                </ul>
+            </li>
+        </ul>
 
-    <h2>Configuration Example</h2>
-    <p>
-        <code>
-            [{"title": "Wordpress Admin", "value": "/wp-admin"},<br />
-            {"title": "TYPO3", "value": "/typo3"},<br />
-            {"title": "Drupal", "value": "/user"}]
-        </code>
-    </p>
+        <hr class="separator" />
+
+        <h2>Configuration</h2>
+        <div class="add-form">
+            <input type="text" class="text title" name="title" placeholder="Title" required="required" />
+            <input type="text" class="text value" name="value" placeholder="Path or URL part (eg. /admin)" required="required" />
+            <button class="add" type="button">Add</button>
+        </div>
+	    <textarea name="jsonConfig" id="jsonConfig" class="configarea"
+              placeholder='eg: [{ "title": "Admin URL", "value": "/admin" }, { "title": "Author URL", "value": "/author" }]'></textarea>
+        <div class="message">You can use the textarea above to edit the configuration directly.</div>
+
+        <h2>Configuration Example</h2>
+        <p>
+            <code>
+                [{"title": "Wordpress Admin", "value": "/wp-admin"},<br />
+                {"title": "TYPO3", "value": "/typo3"},<br />
+                {"title": "Drupal", "value": "/user"}]
+            </code>
+        </p>
+    </section>
+
     <script src="/lib/jquery/jquery.js"></script>
     <script src="/lib/Class.js/Class.js"></script>
     <script src="/js/core.js"></script>

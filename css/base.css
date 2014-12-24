@@ -79,15 +79,15 @@ body,html {
 }
 
 .saved {
-    border-color: green;
+    border-color: #2c4359;
 }
 
 .invalid {
-    border-color: red;
+    border-color: #A00000;
 }
 
 .error {
-    color: red;
+    color: #A00000;
 }
 
 .icon-default {
