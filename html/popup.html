@@ -2,10 +2,11 @@
 <html>
 <head>
 	<title>Pathmarks</title>
-    <link href="/css/fonts/roboto.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="/css/base.css" media="all" rel="stylesheet" type="text/css"/>
-	<link href="/css/popup.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="/lib/css/jquery-ui/jquery-ui.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="/css/fonts/roboto.css" rel="stylesheet" type="text/css"/>
+    <link href="/lib/fontawesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/base.css" rel="stylesheet" type="text/css"/>
+	<link href="/css/popup.css" rel="stylesheet" type="text/css"/>
+    <link href="/lib/jquery-ui/css/jquery-ui.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <div class="header">
@@ -14,13 +15,25 @@
         <div class="add-path"></div>
     </div>
     <div class="add-form">
-        <input type="text" class="text add-input-text title" name="title" placeholder="Title" required="required" />
-        <input type="text" class="text add-input-text value" name="value" placeholder="Path or URL part (eg. /admin)" required="required" />
-        <button class="add" type="button">Add</button>
+        <div class="add-labels">
+            <label class="add-label" for="title">Title</label>
+            <label class="add-label" for="value">Path</label>
+            <div class="add-form-close">
+                <span class="fa-stack fa-lg icon-default js-form-close">
+                    <i class="fa fa-circle-thin fa-stack-2x"></i>
+                    <i class="fa fa-close fa-stack-1x"></i>
+                </span>
+            </div>
+        </div>
+        <div class="add-inputs">
+            <input type="text" class="text add-input-text title" name="title" id="title" placeholder="Title" required="required" />
+            <input type="text" class="text add-input-text value" name="value" id="value" placeholder="Path or URL part (eg. /admin)" required="required" />
+            <button class="add" type="button">Add</button>
+        </div>
     </div>
 	<div class="urls"></div>
     <script src="/lib/jquery/jquery.js"></script>
-    <script src="/lib/js/jquery-ui/jquery-ui.js"></script>
+    <script src="/lib/jquery-ui/js/jquery-ui.js"></script>
     <script src="/lib/Class.js/Class.js"></script>
     <script src="/js/core.js"></script>
     <script src="/js/ui.js"></script>

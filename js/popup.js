@@ -15,6 +15,7 @@ Pathmarks.PopUp = Class.extend({
         this.showBaseUrl();
         this.showAddPathmark();
         this.showOpenOptionPage();
+        this.createCloseFormButton();
         this.loadConfiguration();
         this.loadKeyNavigation();
         this.loadSortable();
@@ -90,6 +91,12 @@ Pathmarks.PopUp = Class.extend({
         jQuery(".urls").html("<div class=\"no-paths-message\"><div>Welcome to pathmarks.</div><div>No paths are configured, use the <span class=\"options\">Options</span> page of this extension to configure paths or add paths with the path icon.</div></div>");
         jQuery(".options").on("click", function() {
             self.openOptionsPage();
+        });
+    },
+
+    createCloseFormButton: function () {
+        jQuery(".js-form-close").on("click", function () {
+            jQuery(".add-form").hide("fast");
         });
     },
 

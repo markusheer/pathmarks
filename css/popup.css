@@ -68,6 +68,30 @@ body {
     display: none;
 }
 
+.add-form-close {
+    float: right;
+    text-align: right;
+}
+
+.icon-default {
+    font-size: 0.6em;
+}
+
+.add-labels, .add-inputs {
+    width: 100%;
+}
+
+.add-label {
+    font-size: 0.9em;
+    color: rgb(211, 211, 211);
+    display: inline-block;
+    width: 40%;
+}
+
+.add-input-text {
+    width: 40%;
+}
+
 .url {
 	cursor: pointer;
 	padding: 5px;
