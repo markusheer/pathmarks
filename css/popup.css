@@ -39,27 +39,10 @@ body {
     height: 16px;
     cursor: pointer;
     float: right;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    border: 1px solid transparent;
-    border-radius: 2px;
-}
-
-.add-path {
-    background-image: url("/images/icon-add128.png");
-}
-
-.add-path:hover {
-    background-image: url("/images/icon-add128hover.png");
 }
 
 .option-page {
     margin-left: 3px;
-    background-image: url("/images/icon-option128.png");
-}
-
-.option-page:hover {
-    background-image: url("/images/icon-option128hover.png");
 }
 
 .add-form {
@@ -105,16 +88,9 @@ body {
 .remove-icon {
     width: 16px;
     height: 16px;
-    background-image: url("/images/icon-remove128.png");
-    background-repeat: no-repeat;
-    background-size: 10px 10px;
-    background-position: 3px 3px;
-    border: 1px solid transparent;
-    border-radius: 2px;
 }
 
 .remove-icon:hover {
-    background-image: url("/images/icon-remove128hover.png");
 }
 
 .remove-entry {

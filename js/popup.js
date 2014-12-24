@@ -105,7 +105,7 @@ Pathmarks.PopUp = Class.extend({
         removeButton.addClass("remove-entry");
         removeButton.attr("title", "Remove this entry");
         var removeIcon = jQuery("<div />");
-        removeIcon.addClass("remove-icon");
+        removeIcon.addClass("remove-icon").addClass("icon-default").addClass("fa fa-minus");
         removeButton.append(removeIcon);
         removeButton.on("click", function() {
             self.createRemoveConfirmButtons(this);
