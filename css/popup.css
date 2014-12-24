@@ -35,14 +35,12 @@ body {
 }
 
 .add-path, .option-page {
-    width: 16px;
-    height: 16px;
     cursor: pointer;
     float: right;
 }
 
 .option-page {
-    margin-left: 3px;
+    margin-left: 0.5em;
 }
 
 .add-form {
@@ -57,7 +55,7 @@ body {
 }
 
 .icon-default {
-    font-size: 0.6em;
+    font-size: 0.9em;
 }
 
 .add-labels, .add-inputs {
@@ -90,9 +88,6 @@ body {
     height: 16px;
 }
 
-.remove-icon:hover {
-}
-
 .remove-entry {
     float: right;
     overflow: auto;
@@ -100,9 +95,6 @@ body {
     color: rgb(211, 211, 211);
     font-family: RobotoRegular, sans-serif;
     font-size: 0.8em;
-}
-
-.remove-entry:hover {
 }
 
 .remove-entry:hover .remove-yes {
