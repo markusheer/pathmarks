@@ -41,20 +41,20 @@ Pathmarks.PopUp = Class.extend({
         return path + query + fragment;
     },
 
-    changeUrls: function(urlTarget) {
+    changeUrls: function(urlTarget, setNewTabActive) {
         var self = this;
         this.executeFunctionOnActiveTab(function(tab) {
             var targetForTab = self.getHostAndPort(tab.url) + urlTarget;
-            self.openOrSelectTab(targetForTab);
+            self.openOrSelectTab(targetForTab, setNewTabActive);
         });
     },
 
-    openOrSelectTab: function(tabUrl) {
+    openOrSelectTab: function(tabUrl, setNewTabActive) {
         chrome.tabs.query({url: tabUrl}, function(tabs) {
             if (tabs.length) {
-                chrome.tabs.update(tabs[0].id, {active: true});
+                chrome.tabs.update(tabs[0].id, {active: setNewTabActive});
             } else {
-                chrome.tabs.create({url: tabUrl});
+                chrome.tabs.create({url: tabUrl, active: setNewTabActive});
             }
         });
     },
@@ -74,8 +74,8 @@ Pathmarks.PopUp = Class.extend({
                     url.addClass("url");
                     url.data("path", entry.value);
                     url.html(entry.title + "<span class='path'>" + entry.value + "</span>");
-                    url.on("click", function () {
-                        self.changeUrls(jQuery(this).data("path"));
+                    url.on("click", function (event) {
+                        self.changeUrls(jQuery(this).data("path"), !event.shiftKey);
                     });
                     url.append(self.createRemoveButton(self));
                     urls.append(url);
@@ -248,7 +248,9 @@ Pathmarks.PopUp = Class.extend({
                 return;
             }
             if (event.which == self.KEY_ENTER) {
-                jQuery(".selected").trigger("click");
+                var clickEvent = jQuery.Event("click");
+                clickEvent.shiftKey = event.shiftKey;
+                jQuery(".selected").trigger(clickEvent);
                 return;
             }
             var selectedUrl = null;
@@ -299,7 +301,7 @@ Pathmarks.PopUp = Class.extend({
 
     openOptionsPage: function() {
         var optionsUrl = this.getOptionsUrl();
-        this.openOrSelectTab(optionsUrl);
+        this.openOrSelectTab(optionsUrl, true);
     },
 
     refreshTab: function(tabUrl) {

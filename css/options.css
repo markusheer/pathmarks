@@ -34,6 +34,7 @@ body {
 
 .main {
     float: left;
+    width: 700px;
 }
 
 .header {
