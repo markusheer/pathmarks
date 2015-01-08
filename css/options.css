@@ -54,6 +54,13 @@ body {
     float: right;
 }
 
+.visit-us {
+    font-size: 0.8em;
+    line-height: 3em;
+    color: rgb(48, 57, 66);
+    border-top: 1px solid rgb(232, 232, 232);
+}
+
 .clear {
     clear: both;
 }
