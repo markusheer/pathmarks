@@ -123,6 +123,13 @@ body {
     font-family: RobotoBlack, sans-serif;
 }
 
+.move-icon {
+	width: 10px;
+	height: 16px;
+	font-size: 0.9em;
+	color: rgb(211, 211, 211);
+}
+
 .path {
     padding-left: 5px;
     font-size: 0.9em;
