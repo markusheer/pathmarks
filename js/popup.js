@@ -45,16 +45,17 @@ Pathmarks.PopUp = Class.extend({
         var self = this;
         this.executeFunctionOnActiveTab(function(tab) {
             var targetForTab = self.getHostAndPort(tab.url) + urlTarget;
-            self.openOrSelectTab(targetForTab, setNewTabActive);
+	        var targetIndex = tab.index + 1;
+            self.openOrSelectTab(targetForTab, setNewTabActive, targetIndex);
         });
     },
 
-    openOrSelectTab: function(tabUrl, setNewTabActive) {
+    openOrSelectTab: function(tabUrl, setNewTabActive, tabIndex) {
         chrome.tabs.query({url: tabUrl}, function(tabs) {
             if (tabs.length) {
                 chrome.tabs.update(tabs[0].id, {active: setNewTabActive});
             } else {
-                chrome.tabs.create({url: tabUrl, active: setNewTabActive});
+                chrome.tabs.create({index: tabIndex, url: tabUrl, active: setNewTabActive});
             }
         });
     },
@@ -73,7 +74,7 @@ Pathmarks.PopUp = Class.extend({
                     var url = jQuery("<div />");
                     url.addClass("url");
                     url.data("path", entry.value);
-                    url.html(entry.title + "<span class='path'>" + entry.value + "</span>");
+                    url.html('<div class="move-icon icon-default fa fa-ellipsis-v" aria-hidden="true"></div>' + entry.title + "<span class='path'>" + entry.value + "</span>");
                     url.on("click", function (event) {
                         self.changeUrls(jQuery(this).data("path"), !event.shiftKey);
                     });
