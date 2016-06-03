@@ -22,7 +22,7 @@ Pathmarks.PopUp = Class.extend({
     },
 
     createVirtualLink: function(url) {
-        var virtualLink = jQuery("<a />");
+        var virtualLink = jQuery("<a></a>");
         virtualLink.prop("href", url);
         return virtualLink;
     },
@@ -71,7 +71,7 @@ Pathmarks.PopUp = Class.extend({
                 var urls = jQuery(".urls");
                 urls.empty();
                 jQuery.each(configs, function(entryIdx, entry) {
-                    var url = jQuery("<div />");
+                    var url = jQuery("<div></div>");
                     url.addClass("url");
                     url.data("path", entry.value);
                     url.html('<div class="move-icon icon-default fa fa-ellipsis-v" aria-hidden="true"></div>' + entry.title + "<span class='path'>" + entry.value + "</span>");
@@ -102,10 +102,10 @@ Pathmarks.PopUp = Class.extend({
     },
 
     createRemoveButton: function(self) {
-        var removeButton = jQuery("<div />");
+        var removeButton = jQuery("<div></div>");
         removeButton.addClass("remove-entry");
         removeButton.attr("title", "Remove this entry");
-        var removeIcon = jQuery("<div />");
+        var removeIcon = jQuery("<div></div>");
         removeIcon.addClass("remove-icon").addClass("icon-default").addClass("fa fa-minus");
         removeButton.append(removeIcon);
         removeButton.on("click", function() {
@@ -119,7 +119,7 @@ Pathmarks.PopUp = Class.extend({
         var self = this;
         var removeEntry = jQuery(clickedElement);
         removeEntry.empty();
-        var removeYes = jQuery("<div />");
+        var removeYes = jQuery("<div></div>");
         removeYes.addClass("remove-yes");
         removeYes.html("Yes");
         removeYes.on("click", function() {
@@ -127,7 +127,7 @@ Pathmarks.PopUp = Class.extend({
             return false;
         });
         removeEntry.append(removeYes);
-        var removeNo = jQuery("<div />")
+        var removeNo = jQuery("<div></div>");
         removeNo.addClass("remove-no");
         removeNo.html("No");
         removeNo.on("click", function() {
@@ -186,13 +186,14 @@ Pathmarks.PopUp = Class.extend({
         this.executeFunctionOnActiveTab(function(tab) {
             var tabTitle = tab.title;
             var pathQueryAndFragment = self.getPathQueryAndFragmentFromUrl(tab.url);
+	        var addPath = jQuery(".add-path");
             if (pathQueryAndFragment == "/") {
-                jQuery(".add-path").hide();
+                addPath.hide();
                 return;
             }
-            jQuery(".add-path").attr("title", pathQueryAndFragment);
-            jQuery(".add-path").on("click", function() {
-                self.addCurrentPath(self, tabTitle, pathQueryAndFragment);
+            addPath.attr("title", pathQueryAndFragment);
+	        addPath.on("click", function() {
+		        self.addCurrentPath(self, tabTitle, pathQueryAndFragment);
             });
         });
     },
@@ -207,9 +208,7 @@ Pathmarks.PopUp = Class.extend({
         });
         jQuery(".add-input-text").on("keyup", function(event) {
             if (event.which == self.KEY_ENTER) {
-                console.log("enter clicked");
                 jQuery(".add").trigger("click");
-                return;
             }
         });
         jQuery(".add-form").show("fast");
@@ -219,7 +218,7 @@ Pathmarks.PopUp = Class.extend({
         var selectorTitle = "input[name=title]";
         var selectorValue = "input[name=value]";
         var title = this.ui.getValueFromInputAndCheckRequired(selectorTitle);
-        var value = this.ui.getValueFromInputAndCheckRequired(selectorValue)
+        var value = this.ui.getValueFromInputAndCheckRequired(selectorValue);
         if (!title || !value) {
             return;
         }
@@ -254,7 +253,6 @@ Pathmarks.PopUp = Class.extend({
                 jQuery(".selected").trigger(clickEvent);
                 return;
             }
-            var selectedUrl = null;
             if (event.which == self.KEY_UP || event.which == self.KEY_DOWN) {
                 if (self.isNonePathmarkSelected()) {
                     jQuery(".url:first").addClass("selected");
@@ -326,7 +324,7 @@ Pathmarks.PopUp = Class.extend({
         var self = this;
         jQuery(".urls").sortable({
             items: ".url",
-            stop: function(event, ui) {
+            stop: function() {
                 self.resortPathmarks();
             }
         });
