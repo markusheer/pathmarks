@@ -1,33 +1,29 @@
 /**
  * Javascript core module for pathmarks.
  */
-var Pathmarks = Pathmarks || {};
+class PathmarksCore {
 
-Pathmarks.Core = Class.extend({
+	constructor() {
+		this.storage = chrome.storage.local;
+		this.storageConfigKey = 'pathmarks';
+	}
 
-    init: function() {
-        this.storage = chrome.storage.local;
-        this.storageConfigKey = "pathmarks";
-    },
+	useGetStorage(callback) {
+		this.storage.get(this.storageConfigKey, (items) => {
+			return callback(items[this.storageConfigKey]);
+		});
+	}
 
-    useGetStorage: function(callback) {
-        var self = this;
-        this.storage.get(this.storageConfigKey, function(items) {
-            return callback(items[self.storageConfigKey]);
-        });
-    },
+	useSetStorage(value, callback) {
+		const storeObject = {};
+		storeObject[this.storageConfigKey] = value;
+		this.storage.set(storeObject, () => {
+			return callback();
+		});
+	}
 
-    useSetStorage: function(value, callback) {
-        var storeObject = {};
-        storeObject[this.storageConfigKey] = value;
-        this.storage.set(storeObject, function() {
-            return callback();
-        });
-    },
-
-    serializeConfigValues: function(configValues) {
-        var serialized = JSON.stringify(configValues);
-        return serialized.replace(/},/g, "},\n");
-    }
-
-});
+	static serializeConfigValues(configValues) {
+		const serialized = JSON.stringify(configValues);
+		return serialized.replace(/},/g, '},\n');
+	}
+}

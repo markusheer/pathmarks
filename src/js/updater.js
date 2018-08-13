@@ -4,38 +4,37 @@
  * versions.
  */
 
-Pathmarks.Updater = Class.extend({
+class PathmarksUpdater {
 
-    init: function() {
+    constructor() {
         this.storage = chrome.storage.local;
-    },
+    }
 
-    start: function() {
+    start() {
         this.updateJsonConfigStorageKey();
-    },
+    }
 
-    updateJsonConfigStorageKey: function() {
-        var oldKey = "jsonConfig";
-        var newKey = "pathmarks";
-        var that = this;
-        this.storage.get(oldKey, function(items) {
+    updateJsonConfigStorageKey() {
+	    const oldKey = 'jsonConfig';
+	    const newKey = 'pathmarks';
+        this.storage.get(oldKey, (items) => {
             if (items[oldKey]) {
-                console.log("Updating from jsonConfig key to pathmarks key");
-                var storeValues = {};
+                console.log('Updating from jsonConfig key to pathmarks key');
+	            const storeValues = {};
                 storeValues[newKey] = items[oldKey];
-                that.storage.set(storeValues, function() {
-                    console.log("Updated to pathmarks key");
+                this.storage.set(storeValues, function() {
+                    console.log('Updated to pathmarks key');
                 });
-                that.storage.remove(oldKey, function() {
-                    console.log("Removed old key jsonConfig");
+                this.storage.remove(oldKey, function() {
+                    console.log('Removed old key jsonConfig');
                 });
             }
         });
     }
 
-});
+}
 
 jQuery().ready(function() {
-    var updater = new Pathmarks.Updater();
+	const updater = new PathmarksUpdater();
     updater.start();
 });

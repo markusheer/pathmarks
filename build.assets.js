@@ -11,7 +11,6 @@ module.exports = {
 	js: [
 		'jquery-ui-dist/jquery-ui.js',
 		'jquery/dist/jquery.js',
-		'resig-class/index.js'
 	],
 	fonts: [
 		'font-awesome/css/font-awesome.css',
@@ -22,4 +21,4 @@ module.exports = {
 		'font-awesome/fonts/fontawesome-webfont.woff',
 		'font-awesome/fonts/fontawesome-webfont.woff2',
 	]
-}
+};
