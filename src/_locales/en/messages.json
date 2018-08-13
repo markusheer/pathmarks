@@ -1,5 +1,5 @@
 {
   "description": {
-    "message": "Bookmark often used paths and open the saved path with the URL from the current tab."
+    "message": "Bookmark often used paths and open the bookmarked path with the hostname from the current tab."
   }
 }
