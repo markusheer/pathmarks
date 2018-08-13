@@ -1,68 +1,69 @@
 @CHARSET "UTF-8";
 
 body {
-    margin-left: 0;
-	margin-right:auto;
+	margin-left: 0;
+	margin-right: auto;
 }
 
 .navigation {
-    float: left;
-    width: 155px;
-    overflow: auto;
-
+	float: left;
+	width: 155px;
+	overflow: auto;
 }
 
 .navigation-header {
-    font-size: 1.3em;
-    line-height: 3em;
-    color: rgb(92, 97, 102);
-    margin-left: 18px;
+	font-size: 1.3em;
+	line-height: 3em;
+	font-weight: 400;
+	color: #003686;
+	margin-left: 18px;
 }
 
 .navigation-entry {
-    font-size: 0.9em;
-    -webkit-border-start: 6px solid transparent;
-    -webkit-padding-start: 18px;
-    -webkit-user-select: none;
+	-webkit-border-start: 6px solid transparent;
+	-webkit-padding-start: 18px;
+	-webkit-user-select: none;
 }
 
 .navigation-entry.selected {
-    -webkit-border-start-color: rgb(78, 87, 100);
-    cursor: default;
-    pointer-events: none;
+	-webkit-border-start-color: rgb(78, 87, 100);
+	cursor: default;
+	pointer-events: none;
 }
 
 .main {
-    float: left;
-    width: 700px;
+	float: left;
+	width: 700px;
 }
 
 .header {
-    font-size: 1.3em;
-    line-height: 3em;
-    color: rgb(48, 57, 66);
-    border-bottom: 1px solid rgb(232, 232, 232);
+	font-size: 1.3em;
+	line-height: 3em;
+	font-weight: 400;
+	color: #616161;
+	border-bottom: 1px solid rgb(232, 232, 232);
 }
 
 .header-title {
-    float: left;
+	float: left;
 }
 
 .header-version {
-    font-size: 0.5em;
-    color: rgb(232, 232, 232);
-    float: right;
+	font-size: 0.5em;
+	font-weight: 500;
+	color: rgb(232, 232, 232);
+	float: right;
 }
 
 .visit-us {
-    font-size: 0.8em;
-    line-height: 3em;
-    color: rgb(48, 57, 66);
-    border-top: 1px solid rgb(232, 232, 232);
+	font-size: 0.8em;
+	line-height: 3em;
+	color: rgb(48, 57, 66);
+	border-top: 1px solid rgb(232, 232, 232);
 }
 
 .clear {
-    clear: both;
+	clear: both;
 }
 
 h1 {
@@ -70,25 +71,23 @@ h1 {
 }
 
 h2 {
-	font-size: 1.1em;
-    color: rgb(0, 0, 0);
-    font-weight: normal;
+	font-size: 1em;
+	color: #616161;
+	font-weight: 500;
 	margin-bottom: 4px;
 }
 
 .description {
-    font-size: 0.9em;
-}
-
-.description {
-    list-style: square;
+	color: #757575;
+	list-style: square;
+	margin: 4px 0 12px;
 }
 
 .separator {
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-color: rgb(232, 232, 232);
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-color: rgb(232, 232, 232);
 }
 
 p code {
@@ -103,51 +102,39 @@ p code {
 .configarea {
 	width: 100%;
 	height: 200px;
-    font-family: monospace;
-    border-color: rgb(159, 159, 159);
+	font-family: monospace;
+	border-color: rgb(159, 159, 159);
 }
 
 .icon {
-    width: 14px;
-    height: 14px;
-    vertical-align: middle;
+	width: 14px;
+	height: 14px;
+	vertical-align: middle;
 }
 
 .add-form {
-    margin-bottom: 2px;
+	margin-bottom: 2px;
 }
 
 .text {
-    width: 42%;
-    height: 20px;
-    border: 1px solid rgb(159, 159, 159););
-    -webkit-appearance: none;
-    -webkit-rtl-ordering: logical;
-    -webkit-user-select: text;
-    -webkit-writing-mode: horizontal-tb;
-    background-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(191, 191, 191);
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-image-outset: 0px;
-    border-image-repeat: stretch;
-    border-image-slice: 100%;
-    border-image-source: none;
-    border-image-width: 1;
-    border-left-color: rgb(191, 191, 191);
-    border-left-style: solid;
-    border-left-width: 1px;
-    border-right-color: rgb(191, 191, 191);
-    border-right-style: solid;
-    border-right-width: 1px;
-    border-top-color: rgb(191, 191, 191);
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
-    border-top-style: solid;
-    border-top-width: 1px;
-    box-sizing: border-box;
-    color: rgb(68, 68, 68);
-    cursor: auto;
+	width: 42%;
+	height: 20px;
+	-webkit-appearance: none;
+	-webkit-rtl-ordering: logical;
+	-webkit-user-select: text;
+	-webkit-writing-mode: horizontal-tb;
+	background-color: rgb(255, 255, 255);
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-image-outset: 0px;
+	border-image-repeat: stretch;
+	border-image-slice: 100%;
+	border-image-source: none;
+	border-image-width: 1;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border: 1px solid rgb(191, 191, 191);
+	box-sizing: border-box;
+	color: rgb(68, 68, 68);
+	cursor: auto;
 }

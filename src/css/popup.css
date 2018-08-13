@@ -1,153 +1,153 @@
 @CHARSET "UTF-8";
 
 body {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 @media only screen and (max-device-width: 1024px) {
-    body {
-        min-width: 400px;
-    }
+	body {
+		min-width: 400px;
+	}
 }
 
 @media screen and (min-device-width: 1025px) {
-    body {
-        min-width: 500px;
-    }
+	body {
+		min-width: 500px;
+	}
 }
 
 .urls {
-    clear: both;
+	clear: both;
 }
 
 .header {
-    font-size: 0.9em;
-    line-height: 1.1em;
-    overflow: auto;
-    padding: 5px;
-    border-bottom: 1px solid rgb(232, 232, 232);
+	line-height: 1.2em;
+	overflow: auto;
+	padding: 5px;
+	border-bottom: 1px solid rgb(232, 232, 232);
 }
 
 .baseurl {
-    color: rgb(211, 211, 211);
-    float: left;
+	color: rgb(211, 211, 211);
+	float: left;
 }
 
 .add-path, .option-page {
-    cursor: pointer;
-    float: right;
+	cursor: pointer;
+	float: right;
+	font-size: 1.1em;
 }
 
 .option-page {
-    margin-left: 0.5em;
+	margin-left: 0.5em;
 }
 
 .add-form {
-    border-bottom: 1px solid rgb(232, 232, 232);
-    padding: 10px;
-    display: none;
+	border-bottom: 1px solid rgb(232, 232, 232);
+	padding: 10px;
+	display: none;
 }
 
 .add-form-close {
-    float: right;
-    text-align: right;
+	float: right;
+	text-align: right;
+	font-size: 1.1em;
 }
 
 .icon-default {
-    font-size: 0.9em;
+	font-size: 0.9em;
 }
 
 .add-labels, .add-inputs {
-    width: 100%;
+	width: 100%;
 }
 
 .add-label {
-    font-size: 0.9em;
-    color: rgb(211, 211, 211);
-    display: inline-block;
-    width: 40%;
+	font-size: 0.9em;
+	color: rgb(211, 211, 211);
+	display: inline-block;
+	width: 40%;
 }
 
 .add-input-text {
-    width: 40%;
+	width: 40%;
 }
 
 .url {
 	cursor: pointer;
 	padding: 5px;
-    overflow: auto;
+	overflow: auto;
 }
 
 .url:hover, .selected {
-	background-color: #EFEFEF;
+	background-color: #efefef;
 }
 
 .remove-icon {
-    width: 16px;
-    height: 16px;
+	width: 16px;
+	height: 16px;
 }
 
 .remove-entry {
-    float: right;
-    overflow: auto;
-    height: 20px;
-    color: rgb(211, 211, 211);
-    font-family: RobotoRegular, sans-serif;
-    font-size: 0.8em;
+	float: right;
+	overflow: auto;
+	height: 20px;
+	color: rgb(211, 211, 211);
+	font-size: 0.8em;
+	font-weight: 500;
 }
 
 .remove-entry:hover .remove-yes {
-    color: rgb(0, 0, 0);
+	color: rgb(0, 0, 0);
 }
 
 .remove-entry:hover .remove-no {
-    color: rgb(0, 0, 0);
+	color: rgb(0, 0, 0);
 }
 
 .remove-yes {
-    float: left;
-    padding: 3px;
+	float: left;
+	padding: 3px;
 }
 
 .remove-yes:hover {
-    font-family: RobotoBlack, sans-serif;
+	font-weight: 700;
 }
 
 .remove-no {
-    float: right;
-    padding: 3px;
+	float: right;
+	padding: 3px;
 }
 
 .remove-no:hover {
-    font-family: RobotoBlack, sans-serif;
+	font-weight: 700;
 }
 
 .move-icon {
 	width: 10px;
 	height: 16px;
-	font-size: 0.9em;
+	font-size: 1em;
 	color: rgb(211, 211, 211);
 }
 
 .path {
-    padding-left: 5px;
-    font-size: 0.9em;
-    color: rgb(211, 211, 211);
+	padding-left: 5px;
+	font-size: 0.9em;
+	color: rgb(211, 211, 211);
 }
 
 .error {
-    padding: 5px;
-	font-size:0.8em;
+	padding: 5px;
+	font-size: 0.8em;
 }
 
 .no-paths-message {
-    padding: 5px;
-    font-size: 0.8em;
+	padding: 5px;
+	font-size: 0.8em;
 }
 
 .options {
-    font-family: RobotoRegular, sans-serif;
-    color: rgb(17, 34, 204);
-    cursor: pointer;
+	color: rgb(17, 34, 204);
+	cursor: pointer;
 }
