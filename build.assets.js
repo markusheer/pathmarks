@@ -14,11 +14,6 @@ module.exports = {
 	],
 	fonts: [
 		'font-awesome/css/font-awesome.css',
-		'font-awesome/fonts/FontAwesome.otf',
-		'font-awesome/fonts/fontawesome-webfont.eot',
-		'font-awesome/fonts/fontawesome-webfont.svg',
-		'font-awesome/fonts/fontawesome-webfont.ttf',
-		'font-awesome/fonts/fontawesome-webfont.woff',
 		'font-awesome/fonts/fontawesome-webfont.woff2',
 	]
 };

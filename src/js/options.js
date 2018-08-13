@@ -8,34 +8,34 @@ class PathmarksOptions {
 	}
 
 	start() {
-		jQuery('.configarea').on('keyup', () => {
+		$('.configarea').on('keyup', () => {
 			this.saveConfiguration();
 		});
-		jQuery('.add').on('click', () => {
+		$('.add').on('click', () => {
 			this.addEntryFromInputFields();
 		});
-		jQuery('.text').on('keyup', (event) => {
+		$('.text').on('keyup', (event) => {
 			PathmarksOptions.addEntriesOnEnter(event, this);
 		});
-		jQuery('.header-version').html(chrome.runtime.getManifest().version);
+		$('.header-version').html(chrome.runtime.getManifest().version);
 		this.loadConfiguration();
 		this.createChromeExtensionsLink();
 	}
 
 	static setMessage(msg) {
-		const messageContainer = jQuery('.message');
+		const messageContainer = $('.message');
 		messageContainer.removeClass('error');
 		messageContainer.html(msg);
 	}
 
 	static setErrorMessage(errorMsg) {
-		const messageContainer = jQuery('.message');
+		const messageContainer = $('.message');
 		messageContainer.addClass('error');
 		messageContainer.html(errorMsg);
 	}
 
 	saveConfiguration() {
-		const jsonConfig = jQuery('#jsonConfig').val();
+		const jsonConfig = $('#jsonConfig').val();
 		if (!jsonConfig) {
 			this.resetConfiguration();
 			return;
@@ -43,12 +43,12 @@ class PathmarksOptions {
 		try {
 			JSON.parse(jsonConfig);
 		} catch (e) {
-			jQuery('.configarea').addClass('invalid');
+			$('.configarea').addClass('invalid');
 			PathmarksOptions.setErrorMessage(`Error: Can not save illegal JSON configuration ${e}`);
 			return;
 		}
 		this.core.useSetStorage(jsonConfig, () => {
-			jQuery('.configarea')
+			$('.configarea')
 				.removeClass('invalid')
 				.addClass('saved');
 			PathmarksOptions.setMessage('Configuration saved');
@@ -56,7 +56,7 @@ class PathmarksOptions {
 	}
 
 	resetConfiguration() {
-		jQuery('#jsonConfig').val('');
+		$('#jsonConfig').val('');
 		this.core.useSetStorage('', () => {
 			PathmarksOptions.setMessage('Configuration cleared.');
 		});
@@ -65,14 +65,14 @@ class PathmarksOptions {
 	loadConfiguration() {
 		this.core.useGetStorage(function (items) {
 			if (items) {
-				jQuery('#jsonConfig').val(items);
+				$('#jsonConfig').val(items);
 			}
 		});
 	}
 
 	addEntryFromInputFields() {
-		const titleField = jQuery('input[name=title]');
-		const valueField = jQuery('input[name=value]');
+		const titleField = $('input[name=title]');
+		const valueField = $('input[name=value]');
 		const title = titleField.val();
 		const value = valueField.val();
 		if (!title) {
@@ -95,7 +95,7 @@ class PathmarksOptions {
 			}
 			const newEntry = {title: title, value: value};
 			configValues.push(newEntry);
-			jQuery('.configarea').val(PathmarksCore.serializeConfigValues(configValues));
+			$('.configarea').val(PathmarksCore.serializeConfigValues(configValues));
 			this.saveConfiguration();
 			titleField.val('');
 			valueField.val('');
@@ -109,14 +109,14 @@ class PathmarksOptions {
 	}
 
 	createChromeExtensionsLink() {
-		jQuery('.js-open-extensions-settings').on('click', function () {
+		$('.js-open-extensions-settings').on('click', function () {
 			chrome.tabs.create({url: 'chrome://extensions'});
 		});
 	}
 
 }
 
-jQuery().ready(function () {
+$().ready(function () {
 	let options = new PathmarksOptions();
 	options.start();
 });

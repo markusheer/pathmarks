@@ -3,29 +3,25 @@
  */
 class PathmarksUI {
 
-	constructor() {
-		this.CSS_INVALID = 'invalid';
-	}
-
-	checkInputRequiredState(inputField) {
+	static checkInputRequiredState(inputField) {
 		if (!inputField.attr('required')) {
 			return;
 		}
 		if (!inputField.val()) {
-			inputField.addClass(this.CSS_INVALID);
+			inputField.addClass('invalid');
 		} else {
-			inputField.removeClass(this.CSS_INVALID);
+			inputField.removeClass('invalid');
 		}
 	}
 
-	getValueFromInputAndCheckRequired(selector) {
-		const inputField = jQuery(selector);
-		this.checkInputRequiredState(inputField);
+	static getValueFromInputAndCheckRequired(selector) {
+		const inputField = $(selector);
+		PathmarksUI.checkInputRequiredState(inputField);
 		return inputField.val();
 	}
 
 	static resetInputField(selector) {
-		jQuery(selector).val('');
+		$(selector).val('');
 	}
 
 }
