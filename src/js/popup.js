@@ -72,7 +72,7 @@ class PathmarksPopUp {
 					const url = $('<div></div>');
 					url.addClass('url');
 					url.data('path', entry.value);
-					url.html('<div class="move-icon icon-default fa fa-ellipsis-v" aria-hidden="true"></div>' + entry.title + '<span class="path">' + entry.value + '</span>');
+					url.html('<div class="move-icon icon-default material-icons" aria-hidden="true">reorder</div>' + entry.title + '<span class="path">' + entry.value + '</span>');
 					url.on('click', (event) => {
 						this.changeUrls($(event.currentTarget).data('path'), !event.shiftKey);
 					});
@@ -102,8 +102,8 @@ class PathmarksPopUp {
 		const removeButton = $('<div></div>');
 		removeButton.addClass('remove-entry');
 		removeButton.attr('title', 'Remove this entry');
-		const removeIcon = $('<div></div>');
-		removeIcon.addClass('remove-icon').addClass('icon-default').addClass('fa fa-minus');
+		const removeIcon = $('<div>remove</div>');
+		removeIcon.addClass('remove-icon').addClass('icon-default').addClass('material-icons');
 		removeButton.append(removeIcon);
 		removeButton.on('click', function () {
 			self.createRemoveConfirmButtons(this);

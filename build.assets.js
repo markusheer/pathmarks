@@ -13,7 +13,7 @@ module.exports = {
 		'jquery/dist/jquery.js',
 	],
 	fonts: [
-		'font-awesome/css/font-awesome.css',
-		'font-awesome/fonts/fontawesome-webfont.woff2',
+		'material-design-icons/iconfont/material-icons.css',
+		'material-design-icons/iconfont/MaterialIcons-Regular.woff2',
 	]
 };
