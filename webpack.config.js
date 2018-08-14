@@ -13,7 +13,7 @@ let config = {
 	},
 	plugins: [
 		new CopyWebpackPlugin([{
-			from: path.resolve(__dirname, './src'), to: path.resolve(__dirname, './build')
+			from: path.resolve(__dirname, './src'), to: path.resolve(__dirname, './build'), ignore: "index.js"
 		}]),
 		new CopyWebpackPlugin(
 			BuildAssets.css.map(asset => {
@@ -68,8 +68,6 @@ module.exports = (env, argv) => {
 			path: path.resolve(__dirname, './dist'),
 			exclude: 'index.js',
 			filename: `${manifest.name}-${manifest.version}`.toLowerCase()
-		}, {
-			mode: 'production'
 		}));
 	}
 
