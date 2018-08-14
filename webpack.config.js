@@ -6,7 +6,7 @@ const GenerateJsonFile = require('generate-json-file-webpack-plugin');
 const BuildAssets = require('./build.assets');
 const manifest = require('./src/manifest.json');
 
-let config = {
+const config = {
 	output: {
 		path: __dirname + "/build/",
 		filename: "[name].js"
