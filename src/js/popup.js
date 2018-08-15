@@ -20,6 +20,7 @@ class PathmarksPopUp {
 	}
 
 	start() {
+		PathmarksPopUp.connectAndSetActiveIcon();
 		this.showBaseUrl();
 		this.showAddPathmark();
 		this.showOpenOptionPage();
@@ -27,6 +28,11 @@ class PathmarksPopUp {
 		this.loadConfiguration();
 		this.loadKeyNavigation();
 		this.loadSortable();
+	}
+
+	static connectAndSetActiveIcon() {
+		chrome.runtime.connect();
+		chrome.browserAction.setIcon({path: '../images/icon-active-38.png'});
 	}
 
 	static createVirtualLink(url) {

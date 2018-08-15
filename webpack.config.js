@@ -44,26 +44,17 @@ const config = {
 
 module.exports = (env, argv) => {
 
-	if (argv.mode === 'production') {
+	if (argv.mode === 'development') {
 		config.plugins.push(new GenerateJsonFile({
 			jsonFile: './src/manifest.json',
 			filename: 'manifest.json',
 			value: (manifest) => {
-
-				manifest['browser_action']['default_icon'] = {
-					"19": "images/icon19.png",
-					"38": "images/icon38.png"
-				};
-
-				return {
-					icons: {
-						"16": "images/icon16.png",
-						"48": "images/icon48.png",
-						"128": "images/icon128.png"
-					},
-				}
+				manifest.short_name = "PathDev";
 			}
 		}));
+	}
+
+	if (argv.mode === 'production') {
 		config.plugins.push(new ZipPlugin({
 			path: path.resolve(__dirname, './dist'),
 			exclude: 'index.js',
