@@ -6,11 +6,10 @@
  */
 module.exports = {
 	css: [
-		'jquery-ui-dist/jquery-ui.css',
+		// None at the moment
 	],
 	js: [
-		'jquery-ui-dist/jquery-ui.js',
-		'jquery/dist/jquery.js',
+		'sortablejs/Sortable.js'
 	],
 	fonts: [
 		'material-design-icons/iconfont/material-icons.css',

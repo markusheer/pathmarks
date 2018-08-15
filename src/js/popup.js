@@ -3,9 +3,17 @@
  */
 class PathmarksPopUp {
 
-	static get KEY_DOWN() { return 40; };
-	static get KEY_ENTER() { return 13; };
-	static get KEY_UP() { return 38; };
+	static get KEY_DOWN() {
+		return 40;
+	};
+
+	static get KEY_ENTER() {
+		return 13;
+	};
+
+	static get KEY_UP() {
+		return 38;
+	};
 
 	constructor() {
 		this.core = new PathmarksCore();
@@ -22,22 +30,22 @@ class PathmarksPopUp {
 	}
 
 	static createVirtualLink(url) {
-		const virtualLink = jQuery('<a></a>');
-		virtualLink.prop('href', url);
+		const virtualLink = document.createElement('a');
+		virtualLink.href = url;
 		return virtualLink;
 	}
 
 	static getHostAndPort(url) {
 		const virtualLink = PathmarksPopUp.createVirtualLink(url);
-		const port = virtualLink.prop('port') ? `:${virtualLink.prop("port")}` : '';
-		return `${virtualLink.prop('protocol')}//${virtualLink.prop('hostname')}${port}`;
+		const port = virtualLink.port ? `:${virtualLink.port}` : '';
+		return `${virtualLink.protocol}//${virtualLink.hostname}${port}`;
 	}
 
 	static getPathQueryAndFragmentFromUrl(url) {
 		const virtualLink = PathmarksPopUp.createVirtualLink(url);
-		const fragment = virtualLink.prop('hash') ? virtualLink.prop('hash') : '';
-		const query = virtualLink.prop('search') ? virtualLink.prop('search') : '';
-		const path = virtualLink.prop('pathname') ? virtualLink.prop('pathname') : '';
+		const fragment = virtualLink.hash ? virtualLink.hash : '';
+		const query = virtualLink.search ? virtualLink.search : '';
+		const path = virtualLink.pathname ? virtualLink.pathname : '';
 		return `${path}${query}${fragment}`;
 	}
 
@@ -66,18 +74,19 @@ class PathmarksPopUp {
 				if (configs.length < 1) {
 					return this.showNoPathsMessage();
 				}
-				const urls = $('.urls');
-				urls.empty();
-				$.each(configs, (entryIdx, entry) => {
-					const url = $('<div></div>');
-					url.addClass('url');
-					url.data('path', entry.value);
-					url.html('<div class="move-icon icon-default material-icons" aria-hidden="true">reorder</div>' + entry.title + '<span class="path">' + entry.value + '</span>');
-					url.on('click', (event) => {
-						this.changeUrls($(event.currentTarget).data('path'), !event.shiftKey);
+				const urls = document.querySelector('.urls');
+				urls.innerHTML = '';
+				configs.forEach((entry) => {
+					const url = document.createElement('div');
+					url.classList.add('url');
+					url.setAttribute('data-path', entry.value);
+					url.innerHTML = '<div class="move-icon icon-default material-icons" aria-hidden="true">reorder</div>' + entry.title + '<span class="path">' + entry.value + '</span>';
+					url.addEventListener('click', (event) => {
+						const targetPath = event.currentTarget.getAttribute('data-path');
+						this.changeUrls(targetPath, !event.shiftKey);
 					});
-					url.append(this.createRemoveButton(this));
-					urls.append(url);
+					url.appendChild(this.createRemoveButton());
+					urls.appendChild(url);
 				});
 			} else {
 				this.showNoPathsMessage();
@@ -86,57 +95,60 @@ class PathmarksPopUp {
 	}
 
 	showNoPathsMessage() {
-		$('.urls').html('<div class="no-paths-message"><div>Welcome to pathmarks.</div><div>No paths are configured, use the <span class="options">Options</span> page of this extension to configure paths or add paths with the path icon.</div></div>');
-		$('.options').on('click', () => {
-			this.openOptionsPage();
-		});
+		document.querySelector('.urls').innerHTML = '<div class="no-paths-message"><div>Welcome to pathmarks.</div><div>No paths are configured, use the <span class="options">Options</span> page of this extension to configure paths or add paths with the path icon.</div></div>';
+		document.querySelector('.options')
+			.addEventListener('click', () => this.openOptionsPage());
 	}
 
 	createCloseFormButton() {
-		$('.js-form-close').on('click', function () {
-			$('.add-form').hide('fast');
-		});
+		document.querySelector('.js-form-close')
+			.addEventListener('click', () => document.querySelector('.add-form').style.display = 'none');
 	}
 
-	createRemoveButton(self) {
-		const removeButton = $('<div></div>');
-		removeButton.addClass('remove-entry');
-		removeButton.attr('title', 'Remove this entry');
-		const removeIcon = $('<div>remove</div>');
-		removeIcon.addClass('remove-icon').addClass('icon-default').addClass('material-icons');
-		removeButton.append(removeIcon);
-		removeButton.on('click', function () {
-			self.createRemoveConfirmButtons(this);
-			return false;
+	createRemoveButton() {
+		const removeButton = document.createElement('div');
+		removeButton.classList.add('remove-entry');
+		removeButton.setAttribute('title', 'Remove this entry');
+
+		const removeIcon = document.createElement('div');
+		removeIcon.classList.add('remove-icon', 'icon-default', 'material-icons');
+		removeIcon.innerText = 'remove';
+		removeButton.appendChild(removeIcon);
+		removeButton.addEventListener('click', (event) => {
+			this.createRemoveConfirmButtons(event.currentTarget);
+			event.stopPropagation();
 		});
+
 		return removeButton;
 	}
 
 	createRemoveConfirmButtons(clickedElement) {
-		const removeEntry = $(clickedElement);
-		removeEntry.empty();
-		const removeYes = $('<div></div>');
-		removeYes.addClass('remove-yes');
-		removeYes.html('Yes');
-		removeYes.on('click', () => {
-			this.removePathmark(removeEntry.parents('.url'));
-			return false;
+		const removeEntry = clickedElement;
+		removeEntry.innerHTML = '';
+
+		const removeYes = document.createElement('div');
+		removeYes.classList.add('remove-yes');
+		removeYes.innerText = 'Yes';
+		removeYes.addEventListener('click', () => {
+			this.removePathmark(removeEntry.closest('.url'));
+			event.stopPropagation();
 		});
-		removeEntry.append(removeYes);
-		const removeNo = $('<div></div>');
-		removeNo.addClass('remove-no');
-		removeNo.html('No');
-		removeNo.on('click', () => {
-			const entryDiv = removeEntry.parents('.url');
+		removeEntry.appendChild(removeYes);
+
+		const removeNo = document.createElement('div');
+		removeNo.classList.add('remove-no');
+		removeNo.innerText = 'No';
+		removeNo.addEventListener('click', () => {
+			const entryDiv = removeEntry.closest('.url');
 			removeEntry.remove();
-			entryDiv.append(this.createRemoveButton(this));
-			return false;
+			entryDiv.appendChild(this.createRemoveButton());
+			event.stopPropagation();
 		});
-		removeEntry.append(removeNo);
+		removeEntry.appendChild(removeNo);
 	}
 
 	removePathmark(pathmarkEntry) {
-		const path = pathmarkEntry.data('path');
+		const path = pathmarkEntry.getAttribute('data-path');
 		this.core.useGetStorage((items) => {
 			let configValues = [];
 			if (items) {
@@ -155,62 +167,58 @@ class PathmarksPopUp {
 
 	executeFunctionOnActiveTab(callback) {
 		chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-			$.each(tabs, function (idx, tab) {
-				return callback(tab);
-			});
+			tabs.forEach((tab) => callback(tab));
 		});
 	}
 
 	showBaseUrl() {
 		this.executeFunctionOnActiveTab((tab) => {
-			let targetForTab = PathmarksPopUp.getHostAndPort(tab.url);
-			$('.baseurl').html(targetForTab);
+			document.querySelector('.baseurl').innerHTML = PathmarksPopUp.getHostAndPort(tab.url);
 		});
 	}
 
 	showOpenOptionPage() {
-		$('.option-page').on('click', () => {
-			this.openOptionsPage();
-		});
+		document.querySelector('.option-page')
+			.addEventListener('click', () => this.openOptionsPage());
 	}
 
 	showAddPathmark() {
 		this.executeFunctionOnActiveTab((tab) => {
 			const tabTitle = tab.title;
 			const pathQueryAndFragment = PathmarksPopUp.getPathQueryAndFragmentFromUrl(tab.url);
-			const addPath = $('.add-path');
+			const addPath = document.querySelector('.add-path');
 			if (pathQueryAndFragment === '/') {
-				addPath.hide();
+				addPath.style.display = 'none';
 				return;
 			}
-			addPath.attr('title', pathQueryAndFragment);
-			addPath.on('click', () => {
+			addPath.setAttribute('title', pathQueryAndFragment);
+			addPath.addEventListener('click', () => {
 				this.addCurrentPath(this, tabTitle, pathQueryAndFragment);
 			});
 		});
 	}
 
 	addCurrentPath(popupObject, tabTitle, pathQueryAndFragment) {
-		const titleField = $('input[name=title]');
-		titleField.val(tabTitle);
-		const valueField = $('input[name=value]');
-		valueField.val(pathQueryAndFragment);
-		$('.add').on('click', function () {
+		const titleField = document.querySelector('input[name=title]');
+		titleField.value = tabTitle;
+		const valueField = document.querySelector('input[name=value]');
+		valueField.value = pathQueryAndFragment;
+		document.querySelector('.add').addEventListener('click', () => {
 			popupObject.addEntryFromInputFields();
 		});
-		$('.add-input-text').on('keyup', function (event) {
+		document.querySelector('.add-input-text').addEventListener('keyup', (event) => {
 			if (event.which === PathmarksPopUp.KEY_ENTER) {
-				$('.add').trigger('click');
+				document.querySelector('.add').click();
 			}
 		});
-		$('.add-form').show('fast');
+		document.querySelector('.add-form').style.display = 'block';
 	}
 
 	addEntryFromInputFields() {
 		const selectorTitle = 'input[name=title]';
 		const selectorValue = 'input[name=value]';
-		const title = PathmarksUI.getValueFromInputAndCheckRequired(selectorTitle);
-		const value = PathmarksUI.getValueFromInputAndCheckRequired(selectorValue);
+		const title = PathmarksPopUp.getValueFromInputAndCheckRequired(selectorTitle);
+		const value = PathmarksPopUp.getValueFromInputAndCheckRequired(selectorValue);
 		if (!title || !value) {
 			return;
 		}
@@ -223,9 +231,9 @@ class PathmarksPopUp {
 			configValues.push(newEntry);
 			const jsonConfig = PathmarksCore.serializeConfigValues(configValues);
 			this.core.useSetStorage(jsonConfig, () => {
-				PathmarksUI.resetInputField(selectorTitle);
-				PathmarksUI.resetInputField(selectorValue);
-				$('.add-form').hide();
+				PathmarksPopUp.resetInputField(selectorTitle);
+				PathmarksPopUp.resetInputField(selectorValue);
+				document.querySelector('.add-form').style.display = 'none';
 				this.start();
 				this.refreshOptionsPage();
 			});
@@ -233,19 +241,23 @@ class PathmarksPopUp {
 	}
 
 	loadKeyNavigation() {
-		$(document.documentElement).on('keyup', (event) => {
+		document.documentElement.addEventListener('keyup', (event) => {
 			if (PathmarksPopUp.isPathmarksEmpty()) {
 				return;
 			}
 			if (event.which === PathmarksPopUp.KEY_ENTER) {
-				const clickEvent = $.Event('click');
-				clickEvent.shiftKey = event.shiftKey;
-				$('.selected').trigger(clickEvent);
+				const clickEvent = new MouseEvent("click", {
+					bubbles: true,
+					cancelable: true,
+					view: window,
+					shiftKey: event.shiftKey
+				});
+				document.querySelector('.selected').dispatchEvent(clickEvent);
 				return;
 			}
 			if (event.which === PathmarksPopUp.KEY_UP || event.which === PathmarksPopUp.KEY_DOWN) {
 				if (PathmarksPopUp.isNonePathmarkSelected()) {
-					$('.url:first').addClass('selected');
+					document.querySelector('.url:first-child').classList.add('selected');
 					return;
 				}
 			}
@@ -259,33 +271,33 @@ class PathmarksPopUp {
 	}
 
 	static isPathmarksEmpty() {
-		return $('.url').length === 0;
+		return document.querySelectorAll('.url').length === 0;
 	}
 
 	static isNonePathmarkSelected() {
-		return $('.selected').length === 0;
+		return document.querySelectorAll('.selected').length === 0;
 	}
 
 	static navigateKeyDown() {
-		const selectedUrl = $('.selected');
-		const nextUrl = selectedUrl.next('.url');
-		selectedUrl.removeClass('selected');
-		if (nextUrl.length === 0) {
-			$('.url:first').addClass('selected');
+		const selectedUrl = document.querySelector('.selected');
+		selectedUrl.classList.remove('selected');
+		const nextUrl = selectedUrl.nextSibling;
+		if (!nextUrl) {
+			document.querySelector('.url:first-child').classList.add('selected');
 			return;
 		}
-		nextUrl.addClass('selected');
+		nextUrl.classList.add('selected');
 	}
 
 	static navigateKeyUp() {
-		const selectedUrl = $('.selected');
-		const previousUrl = selectedUrl.prev('.url');
-		selectedUrl.removeClass('selected');
-		if (previousUrl.length === 0) {
-			$('.url:last').addClass('selected');
+		const selectedUrl = document.querySelector('.selected');
+		selectedUrl.classList.remove('selected');
+		const previousUrl = selectedUrl.previousSibling;
+		if (!previousUrl) {
+			document.querySelector('.url:last-child').classList.add('selected');
 			return;
 		}
-		previousUrl.addClass('selected');
+		previousUrl.classList.add('selected');
 	}
 
 	openOptionsPage() {
@@ -311,16 +323,13 @@ class PathmarksPopUp {
 	}
 
 	loadSortable() {
-		$('.urls').sortable({
-			items: '.url',
-			stop: () => {
-				this.resortPathmarks();
-			}
+		Sortable.create(document.querySelector('.urls'), {
+			onEnd: () => this.resortPathmarks()
 		});
 	}
 
 	resortPathmarks() {
-		const viewWithPaths = this.createPathmarksFromHtml();
+		const viewWithPaths = PathmarksPopUp.createPathmarksFromHtml();
 		this.core.useGetStorage((items) => {
 			let configValues = [];
 			if (items) {
@@ -331,8 +340,8 @@ class PathmarksPopUp {
 				return;
 			}
 			const sortedConfigValues = [];
-			$.each(viewWithPaths, function (sortIndex, path) {
-				$.each(configValues, function (actualIndex, savedPathmark) {
+			viewWithPaths.forEach((path, sortIndex) => {
+				configValues.forEach((savedPathmark) => {
 					if (savedPathmark.value === path) {
 						sortedConfigValues[sortIndex] = savedPathmark;
 					}
@@ -346,18 +355,36 @@ class PathmarksPopUp {
 		});
 	}
 
-	createPathmarksFromHtml() {
-		const urls = $('.url');
-		const result = [];
-		$.each(urls, function (idx, elem) {
-			result.push($(elem).data('path'));
+	static createPathmarksFromHtml() {
+		return Array.from(document.querySelectorAll('.url')).map((elem) => {
+			return elem.getAttribute('data-path');
 		});
-		return result;
+	}
+
+	static checkInputRequiredState(inputField) {
+		if (!inputField.required) {
+			return;
+		}
+		if (!inputField.value) {
+			inputField.classList.add('invalid');
+		} else {
+			inputField.classList.remove('invalid');
+		}
+	}
+
+	static getValueFromInputAndCheckRequired(selector) {
+		const inputField = document.querySelector(selector);
+		PathmarksPopUp.checkInputRequiredState(inputField);
+		return inputField.value;
+	}
+
+	static resetInputField(selector) {
+		document.querySelector(selector).value = '';
 	}
 
 }
 
-$().ready(function () {
+document.addEventListener("DOMContentLoaded", () => {
 	const popup = new PathmarksPopUp();
 	popup.start();
 });

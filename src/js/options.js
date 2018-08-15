@@ -8,82 +8,80 @@ class PathmarksOptions {
 	}
 
 	start() {
-		$('.configarea').on('keyup', () => {
-			this.saveConfiguration();
-		});
-		$('.add').on('click', () => {
-			this.addEntryFromInputFields();
-		});
-		$('.text').on('keyup', (event) => {
-			PathmarksOptions.addEntriesOnEnter(event, this);
-		});
-		$('.header-version').html(chrome.runtime.getManifest().version);
+		document.querySelector('.configarea')
+			.addEventListener('keyup', () => this.saveConfiguration());
+		document.querySelector('.add')
+			.addEventListener('click', () => this.addEntryFromInputFields());
+		document.querySelector('.text')
+			.addEventListener('keyup', (event) => PathmarksOptions.addEntriesOnEnter(event, this));
+		document.querySelector('.header-version')
+			.innerHTML = chrome.runtime.getManifest().version;
 		this.loadConfiguration();
 		this.createChromeExtensionsLink();
 	}
 
 	static setMessage(msg) {
-		const messageContainer = $('.message');
-		messageContainer.removeClass('error');
-		messageContainer.html(msg);
+		const messageContainer = document.querySelector('.message');
+		messageContainer.classList.remove('error');
+		messageContainer.innerHTML = msg;
 	}
 
 	static setErrorMessage(errorMsg) {
-		const messageContainer = $('.message');
-		messageContainer.addClass('error');
-		messageContainer.html(errorMsg);
+		const messageContainer = document.querySelector('.message');
+		messageContainer.classList.add('error');
+		messageContainer.innerHTML = errorMsg;
 	}
 
 	saveConfiguration() {
-		const jsonConfig = $('#jsonConfig').val();
+		const jsonConfig = document.querySelector('#jsonConfig').value;
 		if (!jsonConfig) {
 			this.resetConfiguration();
 			return;
 		}
+		const configArea = document.querySelector('.configarea');
 		try {
 			JSON.parse(jsonConfig);
 		} catch (e) {
-			$('.configarea').addClass('invalid');
+			configArea.classList.add('invalid');
 			PathmarksOptions.setErrorMessage(`Error: Can not save illegal JSON configuration ${e}`);
 			return;
 		}
 		this.core.useSetStorage(jsonConfig, () => {
-			$('.configarea')
-				.removeClass('invalid')
-				.addClass('saved');
+			configArea.classList.remove('invalid');
+			configArea.classList.add("saved");
 			PathmarksOptions.setMessage('Configuration saved');
 		});
 	}
 
 	resetConfiguration() {
-		$('#jsonConfig').val('');
+		document.querySelector('#jsonConfig').value = '';
 		this.core.useSetStorage('', () => {
 			PathmarksOptions.setMessage('Configuration cleared.');
 		});
 	}
 
 	loadConfiguration() {
-		this.core.useGetStorage(function (items) {
+		this.core.useGetStorage(function loadItemsToTextarea(items) {
 			if (items) {
-				$('#jsonConfig').val(items);
+				document.querySelector('#jsonConfig').value = items;
 			}
 		});
 	}
 
 	addEntryFromInputFields() {
-		const titleField = $('input[name=title]');
-		const valueField = $('input[name=value]');
-		const title = titleField.val();
-		const value = valueField.val();
+		const titleField = document.querySelector('input[name=title]');
+		const valueField = document.querySelector('input[name=value]');
+		const title = titleField.value;
+		const value = valueField.value;
 		if (!title) {
-			titleField.addClass('invalid');
+			titleField.classList.add('invalid');
 		} else {
-			titleField.removeClass('invalid');
+			titleField.classList.remove('invalid');
 		}
 		if (!value) {
-			valueField.addClass('invalid');
+			valueField.classList.add('invalid');
 		} else {
-			valueField.removeClass('invalid');
+			valueField.classList.remove('invalid');
 		}
 		if (!title || !value) {
 			return;
@@ -95,10 +93,10 @@ class PathmarksOptions {
 			}
 			const newEntry = {title: title, value: value};
 			configValues.push(newEntry);
-			$('.configarea').val(PathmarksCore.serializeConfigValues(configValues));
+			document.querySelector('.configarea').value = PathmarksCore.serializeConfigValues(configValues);
 			this.saveConfiguration();
-			titleField.val('');
-			valueField.val('');
+			titleField.value = '';
+			valueField.value = '';
 		});
 	}
 
@@ -109,14 +107,13 @@ class PathmarksOptions {
 	}
 
 	createChromeExtensionsLink() {
-		$('.js-open-extensions-settings').on('click', function () {
-			chrome.tabs.create({url: 'chrome://extensions'});
-		});
+		document.querySelector('.js-open-extensions-settings')
+			.addEventListener('click', () => chrome.tabs.create({url: 'chrome://extensions'}));
 	}
 
 }
 
-$().ready(function () {
+document.addEventListener("DOMContentLoaded", () => {
 	let options = new PathmarksOptions();
 	options.start();
 });
