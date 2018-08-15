@@ -8,7 +8,7 @@ class PathmarksBackground {
 	}
 
 	static devBadge() {
-		chrome.browserAction.setBadgeText({text: "d"});
+		chrome.browserAction.setBadgeText({text: "µ"});
 		chrome.browserAction.setBadgeBackgroundColor({color: '#753015'});
 	}
 
