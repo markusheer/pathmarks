@@ -4,7 +4,7 @@
 class PathmarksCore {
 
 	constructor() {
-		this.storage = chrome.storage.local;
+		this.storage = chrome.storage.sync;
 		this.storageConfigKey = 'pathmarks';
 	}
 

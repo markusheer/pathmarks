@@ -3,17 +3,23 @@
  */
 class PathmarksOptions {
 
+	static get KEY_ENTER() {
+		return 13;
+	};
+
 	constructor() {
 		this.core = new PathmarksCore();
 	}
 
 	start() {
-		document.querySelector('.configarea')
-			.addEventListener('keyup', () => this.saveConfiguration());
 		document.querySelector('.add')
 			.addEventListener('click', () => this.addEntryFromInputFields());
-		document.querySelector('.text')
-			.addEventListener('keyup', (event) => PathmarksOptions.addEntriesOnEnter(event, this));
+		document.querySelector('.configarea')
+			.addEventListener('keyup', () => this.validateConfiguration());
+		document.querySelector('.save')
+			.addEventListener('click', () => this.saveConfiguration());
+		document.querySelectorAll('.text')
+			.forEach((text) => text.addEventListener('keyup', (event) => PathmarksOptions.addEntriesOnEnter(event, this)));
 		document.querySelector('.header-version')
 			.innerHTML = chrome.runtime.getManifest().version;
 		this.loadConfiguration();
@@ -32,13 +38,31 @@ class PathmarksOptions {
 		messageContainer.innerHTML = errorMsg;
 	}
 
+	validateConfiguration() {
+		const configArea = document.querySelector('.configarea');
+		const jsonConfig = configArea.value;
+		if (!jsonConfig) {
+			PathmarksOptions.setMessage('Please click on save to clear the configuration.');
+		 	return true;
+		}
+		try {
+			JSON.parse(jsonConfig);
+			PathmarksOptions.setMessage('Please click on save to save the changed configuration.');
+			return true;
+		} catch (e) {
+			configArea.classList.add('invalid');
+			PathmarksOptions.setErrorMessage(`Error: JSON configuration is not valid ${e}`);
+			return false;
+		}
+	}
+
 	saveConfiguration() {
-		const jsonConfig = document.querySelector('#jsonConfig').value;
+		const configArea = document.querySelector('.configarea');
+		const jsonConfig = configArea.value;
 		if (!jsonConfig) {
 			this.resetConfiguration();
 			return;
 		}
-		const configArea = document.querySelector('.configarea');
 		try {
 			JSON.parse(jsonConfig);
 		} catch (e) {
@@ -54,7 +78,10 @@ class PathmarksOptions {
 	}
 
 	resetConfiguration() {
-		document.querySelector('#jsonConfig').value = '';
+		const configArea = document.querySelector('.configarea');
+		configArea.value = '';
+		configArea.classList.remove('invalid');
+		configArea.classList.add("saved");
 		this.core.useSetStorage('', () => {
 			PathmarksOptions.setMessage('Configuration cleared.');
 		});
@@ -63,7 +90,7 @@ class PathmarksOptions {
 	loadConfiguration() {
 		this.core.useGetStorage(function loadItemsToTextarea(items) {
 			if (items) {
-				document.querySelector('#jsonConfig').value = items;
+				document.querySelector('.configarea').value = items;
 			}
 		});
 	}
@@ -101,7 +128,7 @@ class PathmarksOptions {
 	}
 
 	static addEntriesOnEnter(event, optionsObject) {
-		if (event.which === 13) {
+		if (event.which === PathmarksOptions.KEY_ENTER) {
 			optionsObject.addEntryFromInputFields();
 		}
 	}

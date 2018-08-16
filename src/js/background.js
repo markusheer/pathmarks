@@ -8,20 +8,40 @@ class PathmarksBackground {
 	}
 
 	static devBadge() {
-		chrome.browserAction.setBadgeText({text: "µ"});
-		chrome.browserAction.setBadgeBackgroundColor({color: '#753015'});
+		if (chrome.runtime.getManifest().short_name === 'PathDev') {
+			chrome.browserAction.setBadgeText({text: "µ"});
+			chrome.browserAction.setBadgeBackgroundColor({color: '#753015'});
+		}
 	}
 
 }
 
-chrome.runtime.onInstalled.addListener(() => {
-	if (chrome.runtime.getManifest().short_name === 'PathDev') {
-		PathmarksBackground.devBadge();
-	}
-});
+/**
+ * Upgrade tasks
+ */
+class PathmarksUpgrade {
 
-chrome.runtime.onConnect.addListener(function (port) {
-	port.onDisconnect.addListener(() => {
-		PathmarksBackground.standardIcon();
-	});
+	static upgradeToSyncStorage() {
+		chrome.storage.local.get('pathmarks', (store) => {
+			if (store['pathmarks']) {
+				console.log("Local storage entries found. Convert to sync storage...");
+				chrome.storage.sync.set(store, () => {
+					console.log('Copy pathmarks to sync storage.');
+					chrome.storage.local.clear(() => {
+						console.log("Remove local storage entries");
+						console.log('Conversion to sync storage completed.');
+					});
+				});
+			}
+		});
+	}
+
+}
+
+chrome.runtime.onInstalled.addListener(() => PathmarksUpgrade.upgradeToSyncStorage());
+
+chrome.runtime.onInstalled.addListener(() => PathmarksBackground.devBadge());
+
+chrome.runtime.onConnect.addListener((port) => {
+	port.onDisconnect.addListener(() => PathmarksBackground.standardIcon());
 });

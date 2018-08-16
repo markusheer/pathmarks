@@ -8,8 +8,8 @@
 	"scripts": {
 		"clean": "rimraf dist build",
 		"start": "webpack --mode=development --watch --progress --profile --colors",
-		"build:dev": "webpack --mode=development --progress --profile --colors",
-		"build:dist": "webpack --mode=production --progress --profile --colors"
+		"build": "webpack --mode=development --progress --profile --colors",
+		"dist": "webpack --mode=production --progress --profile --colors"
 	},
 	"devDependencies": {
 		"generate-json-file-webpack-plugin": "0.0.3",
