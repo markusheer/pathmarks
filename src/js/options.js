@@ -15,15 +15,14 @@ class PathmarksOptions {
 		document.querySelector('.add')
 			.addEventListener('click', () => this.addEntryFromInputFields());
 		document.querySelector('.configarea')
-			.addEventListener('keyup', () => this.validateConfiguration());
+			.addEventListener('keyup', () => PathmarksOptions.validateConfiguration());
 		document.querySelector('.save')
 			.addEventListener('click', () => this.saveConfiguration());
 		document.querySelectorAll('.text')
 			.forEach((text) => text.addEventListener('keyup', (event) => PathmarksOptions.addEntriesOnEnter(event, this)));
-		document.querySelector('.header-version')
-			.innerHTML = chrome.runtime.getManifest().version;
 		this.loadConfiguration();
 		this.createChromeExtensionsLink();
+		PathmarksOptions.createHeaderVersion();
 	}
 
 	static setMessage(msg) {
@@ -38,7 +37,7 @@ class PathmarksOptions {
 		messageContainer.innerHTML = errorMsg;
 	}
 
-	validateConfiguration() {
+	static validateConfiguration() {
 		const configArea = document.querySelector('.configarea');
 		const jsonConfig = configArea.value;
 		if (!jsonConfig) {
@@ -138,6 +137,12 @@ class PathmarksOptions {
 			.addEventListener('click', () => chrome.tabs.create({url: 'chrome://extensions'}));
 	}
 
+	static createHeaderVersion() {
+		const manifest = chrome.runtime.getManifest();
+		const dev = manifest.short_name === 'PathDev' ? ' DEV' : '';
+		document.querySelector('.header-version')
+			.innerHTML = `${manifest.version}${dev}`;
+	}
 }
 
 document.addEventListener("DOMContentLoaded", () => {
