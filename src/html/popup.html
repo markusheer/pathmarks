@@ -32,6 +32,25 @@
         </div>
     </div>
 	<div class="urls"></div>
+
+	<template id="template-url">
+		<div class="url" data-path="{path}">
+			<div class="move-icon icon-default material-icons" aria-hidden="true">reorder</div><span class="title">{title}</span><span class="path">{path}</span>
+			<div class="remove-entry" title="Remove this entry">
+				<div class="remove-icon icon-default material-icons">remove</div>
+				<div class="remove-yes" style="display: none;">Yes</div>
+				<div class="remove-no" style="display: none;">No</div>
+			</div>
+		</div>
+	</template>
+
+	<template id="template-config-empty">
+		<div class="no-paths-message">
+			<div>Welcome to pathmarks.</div>
+			<div>No paths are configured, use the <span class="options"><i class="material-icons icon-default">settings</i> Options</span> page of this extension to configure paths or add paths with the path icon.</div>
+		</div>
+	</template>
+
 	<script src="/lib/Sortable.js"></script>
     <script src="/js/core.js"></script>
     <script src="/js/popup.js"></script>

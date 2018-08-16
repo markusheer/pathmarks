@@ -83,15 +83,18 @@ class PathmarksPopUp {
 				const urls = document.querySelector('.urls');
 				urls.innerHTML = '';
 				configs.forEach((entry) => {
-					const url = document.createElement('div');
-					url.classList.add('url');
+					const url = PathmarksPopUp.templateContent('template-url', 'url');
 					url.setAttribute('data-path', entry.value);
-					url.innerHTML = '<div class="move-icon icon-default material-icons" aria-hidden="true">reorder</div>' + entry.title + '<span class="path">' + entry.value + '</span>';
+					url.querySelector('.title').innerHTML = entry.title;
+					url.querySelector('.path').innerHTML = entry.value;
 					url.addEventListener('click', (event) => {
 						const targetPath = event.currentTarget.getAttribute('data-path');
 						this.changeUrls(targetPath, !event.shiftKey);
 					});
-					url.appendChild(this.createRemoveButton());
+					url.querySelector('.remove-entry').addEventListener('click', (event) => {
+						this.createRemoveConfirmButtons(event.currentTarget);
+						event.stopPropagation();
+					});
 					urls.appendChild(url);
 				});
 			} else {
@@ -101,9 +104,14 @@ class PathmarksPopUp {
 	}
 
 	showNoPathsMessage() {
-		document.querySelector('.urls').innerHTML = '<div class="no-paths-message"><div>Welcome to pathmarks.</div><div>No paths are configured, use the <span class="options">Options</span> page of this extension to configure paths or add paths with the path icon.</div></div>';
-		document.querySelector('.options')
+		const configEmpty = PathmarksPopUp.templateContent('template-config-empty', 'no-paths-message');
+		configEmpty.querySelector('.options')
 			.addEventListener('click', () => this.openOptionsPage());
+		document.querySelector('.urls').appendChild(configEmpty);
+	}
+
+	static templateContent(templateId, className) {
+		return document.importNode(document.getElementById(templateId).content, true).querySelector(`.${className}`);
 	}
 
 	createCloseFormButton() {
@@ -111,46 +119,26 @@ class PathmarksPopUp {
 			.addEventListener('click', () => document.querySelector('.add-form').style.display = 'none');
 	}
 
-	createRemoveButton() {
-		const removeButton = document.createElement('div');
-		removeButton.classList.add('remove-entry');
-		removeButton.setAttribute('title', 'Remove this entry');
-
-		const removeIcon = document.createElement('div');
-		removeIcon.classList.add('remove-icon', 'icon-default', 'material-icons');
-		removeIcon.innerText = 'remove';
-		removeButton.appendChild(removeIcon);
-		removeButton.addEventListener('click', (event) => {
-			this.createRemoveConfirmButtons(event.currentTarget);
-			event.stopPropagation();
-		});
-
-		return removeButton;
-	}
-
 	createRemoveConfirmButtons(clickedElement) {
 		const removeEntry = clickedElement;
-		removeEntry.innerHTML = '';
+		const removeButton = removeEntry.querySelector('.remove-icon');
+		removeButton.style.display = 'none';
 
-		const removeYes = document.createElement('div');
-		removeYes.classList.add('remove-yes');
-		removeYes.innerText = 'Yes';
+		const removeYes = removeEntry.querySelector('.remove-yes');
 		removeYes.addEventListener('click', () => {
 			this.removePathmark(removeEntry.closest('.url'));
 			event.stopPropagation();
 		});
-		removeEntry.appendChild(removeYes);
-
-		const removeNo = document.createElement('div');
-		removeNo.classList.add('remove-no');
-		removeNo.innerText = 'No';
+		const removeNo = removeEntry.querySelector('.remove-no');
 		removeNo.addEventListener('click', () => {
-			const entryDiv = removeEntry.closest('.url');
-			removeEntry.remove();
-			entryDiv.appendChild(this.createRemoveButton());
+			removeButton.style.display = 'block';
+			removeYes.style.display = 'none';
+			removeNo.style.display = 'none';
 			event.stopPropagation();
 		});
-		removeEntry.appendChild(removeNo);
+		removeYes.style.display = 'block';
+		removeNo.style.display = 'block';
+
 	}
 
 	removePathmark(pathmarkEntry) {
