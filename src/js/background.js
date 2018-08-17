@@ -10,7 +10,7 @@ class PathmarksBackground {
 	static devBadge() {
 		if (chrome.runtime.getManifest().short_name === 'PathDev') {
 			chrome.browserAction.setBadgeText({text: "µ"});
-			chrome.browserAction.setBadgeBackgroundColor({color: '#753015'});
+			chrome.browserAction.setBadgeBackgroundColor({color: 'rgb(80,80,80)'});
 		}
 	}
 
