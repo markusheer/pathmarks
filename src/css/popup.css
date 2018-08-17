@@ -150,3 +150,9 @@ body {
 	color: rgb(17, 34, 204);
 	cursor: pointer;
 }
+
+.sortable-ghost {
+	font-weight: normal;
+	color: #b4c2ca;
+	background-color: #deeff9;
+}
