@@ -22,17 +22,40 @@ class PathmarksBackground {
 class PathmarksUpgrade {
 
 	static upgradeToSyncStorage() {
-		chrome.storage.local.get('pathmarks', (store) => {
+
+		PathmarksUpgrade.storageLocalGet().then(store => {
 			if (store['pathmarks']) {
-				console.log("Local storage entries found. Convert to sync storage...");
-				chrome.storage.sync.set(store, () => {
-					console.log('Copy pathmarks to sync storage.');
-					chrome.storage.local.clear(() => {
-						console.log("Remove local storage entries");
-						console.log('Conversion to sync storage completed.');
-					});
-				});
+				console.log('Local storage entries found. Convert to sync storage...');
+				return PathmarksUpgrade.storageSyncSet(store);
 			}
+			return Promise.reject('No conversion needed');
+		}).then(() => {
+			console.log('Copied pathmarks to sync storage.');
+			return PathmarksUpgrade.storageLocalClear();
+		}).then(() => {
+			console.log('Removed local storage entries');
+			console.log('Conversion to sync storage completed.');
+		}).catch((reason) => {
+			console.debug(`Storage upgrade: ${reason}`);
+		});
+
+	}
+
+	static storageLocalGet() {
+		return new Promise(resolve => {
+			chrome.storage.local.get('pathmarks', resolve);
+		});
+	}
+
+	static storageSyncSet(store) {
+		return new Promise(resolve => {
+			chrome.storage.sync.set(store, resolve);
+		});
+	}
+
+	static storageLocalClear() {
+		return new Promise(resolve => {
+			chrome.storage.local.clear(resolve);
 		});
 	}
 
