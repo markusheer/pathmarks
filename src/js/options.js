@@ -1,14 +1,14 @@
+
+import * as Key from './key.js';
+import Core from './core.js';
+
 /**
  * Handling of options/configuration.
  */
 class PathmarksOptions {
 
-	static get KEY_ENTER() {
-		return 13;
-	};
-
 	constructor() {
-		this.core = new PathmarksCore();
+		this.core = new Core();
 	}
 
 	start() {
@@ -42,7 +42,7 @@ class PathmarksOptions {
 		const jsonConfig = configArea.value;
 		if (!jsonConfig) {
 			PathmarksOptions.setMessage('Please click on save to clear the configuration.');
-		 	return true;
+			return true;
 		}
 		try {
 			JSON.parse(jsonConfig);
@@ -119,7 +119,7 @@ class PathmarksOptions {
 			}
 			const newEntry = {title: title, value: value};
 			configValues.push(newEntry);
-			document.querySelector('.configarea').value = PathmarksCore.serializeConfigValues(configValues);
+			document.querySelector('.configarea').value = Core.serializeConfigValues(configValues);
 			this.saveConfiguration();
 			titleField.value = '';
 			valueField.value = '';
@@ -127,7 +127,7 @@ class PathmarksOptions {
 	}
 
 	static addEntriesOnEnter(event, optionsObject) {
-		if (event.which === PathmarksOptions.KEY_ENTER) {
+		if (event.which === Key.ENTER) {
 			optionsObject.addEntryFromInputFields();
 		}
 	}

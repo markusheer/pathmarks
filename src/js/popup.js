@@ -1,22 +1,14 @@
+import * as Key from './key.js';
+import Core from './core.js';
+import * as SortableModule from '/lib/Sortable.js';
+
 /**
  * Base for the popup of the chrome extension.
  */
 class PathmarksPopUp {
 
-	static get KEY_DOWN() {
-		return 40;
-	};
-
-	static get KEY_ENTER() {
-		return 13;
-	};
-
-	static get KEY_UP() {
-		return 38;
-	};
-
 	constructor() {
-		this.core = new PathmarksCore();
+		this.core = new Core();
 	}
 
 	start() {
@@ -151,7 +143,7 @@ class PathmarksPopUp {
 			for (let idx = configValues.length - 1; idx >= 0; idx--) {
 				if (configValues[idx].value === path) configValues.splice(idx, 1);
 			}
-			const jsonConfig = PathmarksCore.serializeConfigValues(configValues);
+			const jsonConfig = Core.serializeConfigValues(configValues);
 			this.core.useSetStorage(jsonConfig, () => {
 				this.start();
 				this.refreshOptionsPage();
@@ -201,7 +193,7 @@ class PathmarksPopUp {
 			popupObject.addEntryFromInputFields();
 		});
 		document.querySelector('.add-input-text').addEventListener('keyup', (event) => {
-			if (event.which === PathmarksPopUp.KEY_ENTER) {
+			if (event.which === Key.ENTER) {
 				document.querySelector('.add').click();
 			}
 		});
@@ -223,7 +215,7 @@ class PathmarksPopUp {
 			}
 			const newEntry = {'title': title, 'value': value};
 			configValues.push(newEntry);
-			const jsonConfig = PathmarksCore.serializeConfigValues(configValues);
+			const jsonConfig = Core.serializeConfigValues(configValues);
 			this.core.useSetStorage(jsonConfig, () => {
 				PathmarksPopUp.resetInputField(selectorTitle);
 				PathmarksPopUp.resetInputField(selectorValue);
@@ -239,26 +231,23 @@ class PathmarksPopUp {
 			if (PathmarksPopUp.isPathmarksEmpty()) {
 				return;
 			}
-			if (event.which === PathmarksPopUp.KEY_ENTER) {
-				const clickEvent = new MouseEvent("click", {
-					bubbles: true,
-					cancelable: true,
-					view: window,
-					shiftKey: event.shiftKey
-				});
-				document.querySelector('.selected').dispatchEvent(clickEvent);
+			if (event.which === Key.ENTER) {
+				if (!PathmarksPopUp.isNonePathmarkSelected()) {
+					document.querySelector('.selected')
+						.dispatchEvent(PathmarksPopUp.createClickEvent(event.shiftKey));
+				}
 				return;
 			}
-			if (event.which === PathmarksPopUp.KEY_UP || event.which === PathmarksPopUp.KEY_DOWN) {
+			if (event.which === Key.UP || event.which === Key.DOWN) {
 				if (PathmarksPopUp.isNonePathmarkSelected()) {
 					document.querySelector('.url:first-child').classList.add('selected');
 					return;
 				}
 			}
-			if (event.which === PathmarksPopUp.KEY_DOWN) {
+			if (event.which === Key.DOWN) {
 				return PathmarksPopUp.navigateKeyDown();
 			}
-			if (event.which === PathmarksPopUp.KEY_UP) {
+			if (event.which === Key.UP) {
 				return PathmarksPopUp.navigateKeyUp();
 			}
 		});
@@ -270,6 +259,15 @@ class PathmarksPopUp {
 
 	static isNonePathmarkSelected() {
 		return document.querySelectorAll('.selected').length === 0;
+	}
+
+	static createClickEvent(shiftKey) {
+		return new MouseEvent("click", {
+			bubbles: true,
+			cancelable: true,
+			view: window,
+			shiftKey: shiftKey
+		});
 	}
 
 	static navigateKeyDown() {
@@ -317,6 +315,7 @@ class PathmarksPopUp {
 	}
 
 	loadSortable() {
+		console.debug('Load Sortable via module', SortableModule);
 		Sortable.create(document.querySelector('.urls'), {
 			onEnd: () => this.resortPathmarks()
 		});
@@ -341,7 +340,7 @@ class PathmarksPopUp {
 					}
 				});
 			});
-			const jsonConfig = PathmarksCore.serializeConfigValues(sortedConfigValues);
+			const jsonConfig = Core.serializeConfigValues(sortedConfigValues);
 			this.core.useSetStorage(jsonConfig, () => {
 				this.start();
 				this.refreshOptionsPage();

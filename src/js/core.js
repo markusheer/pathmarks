@@ -1,7 +1,8 @@
+
 /**
  * Javascript core module for pathmarks.
  */
-class PathmarksCore {
+export default class Core {
 
 	constructor() {
 		this.storage = chrome.storage.sync;
