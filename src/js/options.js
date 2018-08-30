@@ -1,5 +1,6 @@
 import * as Key from './key.js';
 import Core from './core.js';
+import InputField from './inputfield.js';
 
 /**
  * Handling of options/configuration.
@@ -127,7 +128,7 @@ class PathmarksOptions {
 	}
 
 	static addEntriesOnEnter(event, optionsObject) {
-		if (event.which === Key.ENTER) {
+		if (event.key === Key.ENTER) {
 			optionsObject.addEntryFromInputFields();
 		}
 	}
@@ -175,30 +176,6 @@ class ConfigArea {
 	setSavedState() {
 		this.setValidState();
 		this.configArea.classList.add('saved');
-	}
-
-}
-
-class InputField {
-
-	constructor(fieldName) {
-		this.inputField = document.querySelector(`input[name=${fieldName}]`);
-	}
-
-	getValue() {
-		return this.inputField.value;
-	}
-
-	setValue(value) {
-		this.inputField.value = value;
-	}
-
-	resetValue() {
-		this.setValue('');
-	}
-
-	changeClassState() {
-		PathmarksOptions.changeClassState(this.inputField, 'invalid', !this.getValue());
 	}
 
 }

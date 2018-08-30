@@ -1,6 +1,7 @@
 import * as Key from './key.js';
 import Core from './core.js';
 import * as SortableModule from '/lib/Sortable.js';
+import InputField from './inputfield.js';
 
 /**
  * Base for the popup of the chrome extension.
@@ -80,8 +81,7 @@ class PathmarksPopUp {
 					url.querySelector('.title').innerHTML = entry.title;
 					url.querySelector('.path').innerHTML = entry.value;
 					url.addEventListener('click', (event) => {
-						const targetPath = event.currentTarget.getAttribute('data-path');
-						this.changeUrls(targetPath, !event.shiftKey);
+						this.changeUrls(PathmarksPopUp.getTargetPath(event), !event.shiftKey);
 					});
 					url.querySelector('.remove-entry').addEventListener('click', (event) => {
 						this.createRemoveConfirmButtons(event.currentTarget);
@@ -93,6 +93,10 @@ class PathmarksPopUp {
 				this.showNoPathsMessage();
 			}
 		});
+	}
+
+	static getTargetPath(event) {
+		return event.currentTarget.getAttribute('data-path');
 	}
 
 	showNoPathsMessage() {
@@ -185,15 +189,15 @@ class PathmarksPopUp {
 	}
 
 	addCurrentPath(popupObject, tabTitle, pathQueryAndFragment) {
-		const titleField = document.querySelector('input[name=title]');
-		titleField.value = tabTitle;
-		const valueField = document.querySelector('input[name=value]');
-		valueField.value = pathQueryAndFragment;
+		const titleField = new InputField('title');
+		titleField.setValue(tabTitle);
+		const valueField = new InputField('value');
+		valueField.setValue(pathQueryAndFragment);
 		document.querySelector('.add').addEventListener('click', () => {
 			popupObject.addEntryFromInputFields();
 		});
 		document.querySelector('.add-input-text').addEventListener('keyup', (event) => {
-			if (event.which === Key.ENTER) {
+			if (event.key === Key.ENTER) {
 				document.querySelector('.add').click();
 			}
 		});
@@ -201,11 +205,13 @@ class PathmarksPopUp {
 	}
 
 	addEntryFromInputFields() {
-		const selectorTitle = 'input[name=title]';
-		const selectorValue = 'input[name=value]';
-		const title = PathmarksPopUp.getValueFromInputAndCheckRequired(selectorTitle);
-		const value = PathmarksPopUp.getValueFromInputAndCheckRequired(selectorValue);
-		if (!title || !value) {
+		const titleField = new InputField('title');
+		const valueField = new InputField('value');
+
+		PathmarksPopUp.checkInputRequiredState(titleField);
+		PathmarksPopUp.checkInputRequiredState(valueField);
+
+		if (!titleField.getValue() || !valueField.getValue()) {
 			return;
 		}
 		this.core.useGetStorage((items) => {
@@ -213,12 +219,12 @@ class PathmarksPopUp {
 			if (items) {
 				configValues = JSON.parse(items);
 			}
-			const newEntry = {'title': title, 'value': value};
+			const newEntry = {'title': titleField.getValue(), 'value': valueField.getValue()};
 			configValues.push(newEntry);
 			const jsonConfig = Core.serializeConfigValues(configValues);
 			this.core.useSetStorage(jsonConfig, () => {
-				PathmarksPopUp.resetInputField(selectorTitle);
-				PathmarksPopUp.resetInputField(selectorValue);
+				titleField.resetValue();
+				valueField.resetValue();
 				document.querySelector('.add-form').style.display = 'none';
 				this.start();
 				this.refreshOptionsPage();
@@ -231,24 +237,29 @@ class PathmarksPopUp {
 			if (PathmarksPopUp.isPathmarksEmpty()) {
 				return;
 			}
-			if (event.which === Key.ENTER) {
+			if (event.key === Key.ENTER) {
 				if (!PathmarksPopUp.isNonePathmarkSelected()) {
 					document.querySelector('.selected')
 						.dispatchEvent(PathmarksPopUp.createClickEvent(event.shiftKey));
 				}
+			}
+		});
+
+		document.documentElement.addEventListener('keydown', (event) => {
+			if (PathmarksPopUp.isPathmarksEmpty()) {
 				return;
 			}
-			if (event.which === Key.UP || event.which === Key.DOWN) {
+			if (event.key === Key.UP || event.key === Key.DOWN) {
 				if (PathmarksPopUp.isNonePathmarkSelected()) {
 					document.querySelector('.url:first-child').classList.add('selected');
 					return;
 				}
 			}
-			if (event.which === Key.DOWN) {
-				return PathmarksPopUp.navigateKeyDown();
+			if (event.key === Key.DOWN) {
+				return PathmarksPopUp.navigateKeyChange();
 			}
-			if (event.which === Key.UP) {
-				return PathmarksPopUp.navigateKeyUp();
+			if (event.key === Key.UP) {
+				return PathmarksPopUp.navigateKeyChange({up: true});
 			}
 		});
 	}
@@ -270,26 +281,16 @@ class PathmarksPopUp {
 		});
 	}
 
-	static navigateKeyDown() {
+	static navigateKeyChange({up = false} = {}) {
 		const selectedUrl = document.querySelector('.selected');
 		selectedUrl.classList.remove('selected');
-		const nextUrl = selectedUrl.nextSibling;
+		const nextUrl = up ? selectedUrl.previousSibling : selectedUrl.nextSibling;
 		if (!nextUrl) {
-			document.querySelector('.url:first-child').classList.add('selected');
+			const childSelector = up ? 'last-child' : 'first-child';
+			document.querySelector(`.url:${childSelector}`).classList.add('selected');
 			return;
 		}
 		nextUrl.classList.add('selected');
-	}
-
-	static navigateKeyUp() {
-		const selectedUrl = document.querySelector('.selected');
-		selectedUrl.classList.remove('selected');
-		const previousUrl = selectedUrl.previousSibling;
-		if (!previousUrl) {
-			document.querySelector('.url:last-child').classList.add('selected');
-			return;
-		}
-		previousUrl.classList.add('selected');
 	}
 
 	openOptionsPage() {
@@ -355,24 +356,10 @@ class PathmarksPopUp {
 	}
 
 	static checkInputRequiredState(inputField) {
-		if (!inputField.required) {
+		if (!inputField.isRequired()) {
 			return;
 		}
-		if (!inputField.value) {
-			inputField.classList.add('invalid');
-		} else {
-			inputField.classList.remove('invalid');
-		}
-	}
-
-	static getValueFromInputAndCheckRequired(selector) {
-		const inputField = document.querySelector(selector);
-		PathmarksPopUp.checkInputRequiredState(inputField);
-		return inputField.value;
-	}
-
-	static resetInputField(selector) {
-		document.querySelector(selector).value = '';
+		inputField.changeClassState();
 	}
 
 }
