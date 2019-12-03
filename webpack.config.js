@@ -11,6 +11,9 @@ const config = {
 		path: __dirname + "/build/",
 		filename: "[name].js"
 	},
+	performance: {
+		maxAssetSize: 500000
+	},
 	plugins: [
 		new CopyWebpackPlugin([{
 			from: path.resolve(__dirname, './src'), to: path.resolve(__dirname, './build'), ignore: "index.js"
