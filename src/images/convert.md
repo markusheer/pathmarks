@@ -4,11 +4,11 @@ Use the following shell commands with graphicsmagick ('brew install graphicsmagi
 
 Icons colorized for default state:
 
-`gm convert iconmonstr-bookmark.png -fill "rgb(80,80,80)" -colorize 100/100/100 icon-grey.png`
+`gm convert iconmonstr-bookmark.png -fill "rgb(100,100,100)" -colorize 100/100/100 icon-grey.png`
 
 Icons colorized active state:
 
-`gm convert iconmonstr-bookmark.png -fill "rgb(40,90,210)" -colorize 100/100/100 icon-active.png`
+`gm convert iconmonstr-bookmark.png -fill "rgb(80,130,130)" -colorize 100/100/100 icon-active.png`
 
 Use the following commands to create the different icon sizes.
 
@@ -18,4 +18,4 @@ Icons for default state:
 
 Icons for active state:
 
-`for i in 128 48 38 19 16; do gm convert -resize ${i}x${i} icon-active.png icon-active-${i}.png; done`
+`for i in 38; do gm convert -resize ${i}x${i} icon-active.png icon-active-${i}.png; done`
