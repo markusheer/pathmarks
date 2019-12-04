@@ -3,6 +3,7 @@
 body {
 	margin-left: 0;
 	margin-right: auto;
+	background-color: var(--default-background-color);
 }
 
 .navigation {
@@ -15,7 +16,7 @@ body {
 	font-size: 1.3em;
 	line-height: 3em;
 	font-weight: 400;
-	color: #003686;
+	color: var(--navigation-header-color);
 	margin-left: 18px;
 }
 
@@ -26,7 +27,7 @@ body {
 }
 
 .navigation-entry.selected {
-	-webkit-border-start-color: rgb(78, 87, 100);
+	-webkit-border-start-color: var(--navigation-selected-hover-color);
 	cursor: default;
 	pointer-events: none;
 }
@@ -40,8 +41,8 @@ body {
 	font-size: 1.3em;
 	line-height: 3em;
 	font-weight: 400;
-	color: #616161;
-	border-bottom: 1px solid rgb(232, 232, 232);
+	color: var(--header-color);
+	border-bottom: 1px solid var(--default-border-color);
 }
 
 .header-title {
@@ -51,15 +52,15 @@ body {
 .header-version {
 	font-size: 0.5em;
 	font-weight: 500;
-	color: rgb(232, 232, 232);
+	color: var(--header-version-color);
 	float: right;
 }
 
 .visit-us {
 	font-size: 0.8em;
 	line-height: 3em;
-	color: rgb(48, 57, 66);
-	border-top: 1px solid rgb(232, 232, 232);
+	color: var(--visit-us-color);
+	border-top: 1px solid var(--default-border-color);
 }
 
 .clear {
@@ -72,13 +73,13 @@ h1 {
 
 h2 {
 	font-size: 1em;
-	color: #616161;
+	color: var(--header-color);
 	font-weight: 500;
 	margin-bottom: 4px;
 }
 
 .description {
-	color: #757575;
+	color: var(--description-color);
 	list-style: disc;
 	margin: 4px 0 12px;
 }
@@ -87,16 +88,16 @@ h2 {
 	border-top: none;
 	border-left: none;
 	border-right: none;
-	border-color: rgb(232, 232, 232);
+	border-color: var(--default-border-color)
 }
 
 p code {
-	color: grey;
+	color: var(--description-color);
 }
 
 .message {
 	font-size: 0.8em;
-	color: grey;
+	color: var(--description-color);
 }
 
 .configarea {
@@ -123,18 +124,18 @@ p code {
 	-webkit-rtl-ordering: logical;
 	-webkit-user-select: text;
 	-webkit-writing-mode: horizontal-tb;
-	background-color: rgb(255, 255, 255);
+	background-color: var(--default-background-color);
 	border-bottom-left-radius: 2px;
 	border-bottom-right-radius: 2px;
-	border-image-outset: 0px;
+	border-image-outset: 0;
 	border-image-repeat: stretch;
 	border-image-slice: 100%;
 	border-image-source: none;
 	border-image-width: 1;
 	border-top-left-radius: 2px;
 	border-top-right-radius: 2px;
-	border: 1px solid rgb(191, 191, 191);
+	border: 1px solid var(--text-border-color);
 	box-sizing: border-box;
-	color: rgb(68, 68, 68);
+	color: var(--text-color);
 	cursor: auto;
 }

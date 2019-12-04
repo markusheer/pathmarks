@@ -25,11 +25,11 @@ body {
 	line-height: 1.2em;
 	overflow: auto;
 	padding: 5px;
-	border-bottom: 1px solid rgb(232, 232, 232);
+	border-bottom: 1px solid var(--default-border-color);
 }
 
 .baseurl {
-	color: rgb(211, 211, 211);
+	color: var(--light-color);
 	float: left;
 }
 
@@ -44,7 +44,7 @@ body {
 }
 
 .add-form {
-	border-bottom: 1px solid rgb(232, 232, 232);
+	border-bottom: 1px solid var(--default-border-color);
 	padding: 10px;
 	display: none;
 }
@@ -65,7 +65,7 @@ body {
 
 .add-label {
 	font-size: 0.9em;
-	color: rgb(211, 211, 211);
+	color: var(--light-color);
 	display: inline-block;
 	width: 40%;
 }
@@ -81,7 +81,7 @@ body {
 }
 
 .url:hover, .selected {
-	background-color: #efefef;
+	background-color: var(--url-hover-background-color);
 }
 
 .remove-icon {
@@ -93,17 +93,17 @@ body {
 	float: right;
 	overflow: auto;
 	height: 20px;
-	color: rgb(211, 211, 211);
+	color: var(--light-color);
 	font-size: 0.8em;
 	font-weight: 500;
 }
 
 .remove-entry:hover .remove-yes {
-	color: rgb(0, 0, 0);
+	color: var(--dark-hover-color);
 }
 
 .remove-entry:hover .remove-no {
-	color: rgb(0, 0, 0);
+	color: var(--dark-hover-color);
 }
 
 .remove-yes {
@@ -127,13 +127,13 @@ body {
 .move-icon {
 	width: 16px;
 	height: 16px;
-	color: rgb(211, 211, 211);
+	color: var(--light-color);
 }
 
 .path {
 	padding-left: 5px;
 	font-size: 0.9em;
-	color: rgb(211, 211, 211);
+	color: var(--light-color);
 }
 
 .error {
@@ -147,12 +147,12 @@ body {
 }
 
 .options {
-	color: rgb(17, 34, 204);
+	color: var(--options-color);
 	cursor: pointer;
 }
 
 .sortable-ghost {
 	font-weight: normal;
-	color: #b4c2ca;
-	background-color: #deeff9;
+	color: var(--sortable-ghost-color);
+	background-color: var(--sortable-ghost-background-color);
 }

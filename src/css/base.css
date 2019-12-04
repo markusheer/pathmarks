@@ -3,16 +3,27 @@
 body {
 	font-family: Roboto, system-ui, sans-serif;
 	font-size: 81.25%;
+	background: var(--default-background-color);
+	color: var(--text-color);
 }
 
 button {
 	font-family: Roboto, system-ui, sans-serif;
 }
 
+a {
+	color: var(--link-color);
+}
+
+a:hover {
+	color: var(--link-hover-color);
+}
+
 .add, .save {
-	border: 1px solid rgb(218, 220, 224);
+	border: 1px solid var(--button-border-color);
 	border-radius: 4px;
-	color: #1a73e8;
+	color: var(--button-text-color);
+	background-color: var(--button-background-color);
 	flex-shrink: 0;
 	font-weight: 500;
 	height: 24px;
@@ -24,7 +35,7 @@ button {
 }
 
 .add:hover, .save:hover {
-	background-color: rgba(66, 133, 244, 0.3);
+	background-color: var(--button-hover-background-color);
 }
 
 .text {
@@ -34,7 +45,7 @@ button {
 	-webkit-rtl-ordering: logical;
 	-webkit-user-select: text;
 	-webkit-writing-mode: horizontal-tb;
-	background-color: rgb(255, 255, 255);
+	background-color: var(--default-background-color);
 	border-bottom-left-radius: 2px;
 	border-bottom-right-radius: 2px;
 	border-image-outset: 0;
@@ -44,29 +55,29 @@ button {
 	border-image-width: 1;
 	border-top-left-radius: 2px;
 	border-top-right-radius: 2px;
-	border: 1px solid rgb(191, 191, 191);
+	border: 1px solid var(--text-border-color);
 	box-sizing: border-box;
-	color: rgb(68, 68, 68);
+	color: var(--text-color);
 	cursor: auto;
 }
 
 .saved {
-	border-color: #2c4359;
+	border-color: var(--saved-border-color);
 }
 
 .invalid {
-	border-color: #a00000;
+	border-color: var(--error-color);
 }
 
 .error {
-	color: #a00000;
+	color: var(--error-color);
 }
 
 .icon-default {
 	cursor: pointer;
-	color: #a6a6a6;
+	color: var(--icon-default-color);
 }
 
 .icon-default:hover {
-	color: #000000;
+	color: var(--dark-hover-color);
 }
