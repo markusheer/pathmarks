@@ -12,10 +12,10 @@
 		"dist": "webpack --mode=production --progress --profile --colors"
 	},
 	"devDependencies": {
-		"copy-webpack-plugin": "^5.0.5",
+		"copy-webpack-plugin": "^5.1.1",
 		"generate-json-file-webpack-plugin": "0.0.3",
 		"rimraf": "^3.0.0",
-		"webpack": "^4.41.2",
+		"webpack": "^4.41.3",
 		"webpack-cli": "^3.3.10",
 		"zip-webpack-plugin": "^3.0.0"
 	},

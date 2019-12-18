@@ -16,7 +16,7 @@ const config = {
 	},
 	plugins: [
 		new CopyWebpackPlugin([{
-			from: path.resolve(__dirname, './src'), to: path.resolve(__dirname, './build'), ignore: "index.js"
+			from: path.resolve(__dirname, './src'), to: path.resolve(__dirname, './build'), ignore: ['index.js']
 		}]),
 		new CopyWebpackPlugin(
 			BuildAssets.css.map(asset => {
