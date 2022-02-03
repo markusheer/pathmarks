@@ -1,3 +1,7 @@
+## :warning: Retired and archived
+
+Please note that this Chrome Extension has been retired and is no longer available. This archive is for history purposes only.
+
 # Pathmarks
 
 ## Chrome Extension
